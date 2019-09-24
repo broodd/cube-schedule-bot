@@ -20,7 +20,7 @@ teachers.enter(async (ctx: ContextMessageUpdate) => {
   if (teachers.length) {
     await ctx.reply(ctx.i18n.t('scenes.teachers.list_of_teachers'));
     await ctx.replyWithHTML(getTeachers(teachers), backKeyboard);
-    await ctx.reply(ctx.i18n.t('scenes.teachers.seach_teachers'));
+    await ctx.reply(ctx.i18n.t('scenes.teachers.search_teachers'));
   } else {
     await ctx.reply(ctx.i18n.t('scenes.movies.no_movies_in_collection'), backKeyboard);
   }

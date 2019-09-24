@@ -28,11 +28,12 @@ export const getMainKeyboard = (ctx: ContextMessageUpdate) => {
   const mainKeyboardSupport = ctx.i18n.t('keyboards.main_keyboard.support');
   const mainKeyboardContact = ctx.i18n.t('keyboards.main_keyboard.contact');
   const mainKeyboardTeachers = ctx.i18n.t('keyboards.main_keyboard.teachers');
+  const mainKeyboardScheldure = ctx.i18n.t('keyboards.main_keyboard.scheldure');
   let mainKeyboard: any = Markup.keyboard([
     [mainKeyboardSearchMovies, mainKeyboardMyCollection] as any,
     [mainKeyboardSettings, mainKeyboardAbout],
     [mainKeyboardSupport, mainKeyboardContact],
-    [mainKeyboardTeachers]
+    [mainKeyboardScheldure, mainKeyboardTeachers]
   ]);
   mainKeyboard = mainKeyboard.resize().extra();
 

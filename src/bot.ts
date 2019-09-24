@@ -18,6 +18,7 @@ import moviesScene from './controllers/movies';
 import settingsScene from './controllers/settings';
 import contactScene from './controllers/contact';
 import teachersScene from './controllers/teachers';
+import scheldureScene from './controllers/scheldure';
 import adminScene from './controllers/admin';
 
 import { checkUnreleasedMovies } from './util/notifier';
@@ -52,6 +53,7 @@ mongoose.connection.on('open', () => {
     settingsScene,
     contactScene,
     teachersScene,
+    scheldureScene,
     adminScene
   ]);
   const i18n = new TelegrafI18n({
@@ -143,6 +145,11 @@ mongoose.connection.on('open', () => {
     match('keyboards.main_keyboard.teachers'),
     updateUserTimestamp,
     asyncWrapper(async (ctx: ContextMessageUpdate) => await ctx.scene.enter('teachers'))
+  );
+  bot.hears(
+    match('keyboards.main_keyboard.scheldure'),
+    updateUserTimestamp,
+    asyncWrapper(async (ctx: ContextMessageUpdate) => await ctx.scene.enter('scheldure'))
   );
   bot.hears(
     match('keyboards.back_keyboard.back'),

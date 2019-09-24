@@ -22,7 +22,7 @@
       "list_of_teachers": "This is list of your teachers",
       "back_button": "◀️ Back",
       "delete_button": "❌ Delete",
-      "seach_teachers": "You can input for search",
+      "search_teachers": "You can input for search",
       "no_movies_in_collection": "🗑 You don't have any movies in your collection. Go add some!"
     },
     "search": {
@@ -70,7 +70,8 @@
       "about": "❓ About",
       "support": "💰 Donation",
       "contact": "✍️ Contact",
-      "teachers": "Teachers"
+      "teachers": "Teachers",
+      "scheldure": "Scheldure"
     }
   },
   "other": {

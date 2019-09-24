@@ -22,7 +22,7 @@
       "list_of_teachers": "Список твоїх вчителів",
       "back_button": "◀️ Назад",
       "delete_button": "❌ Delete",
-      "seach_teachers": "Введи для пошуку",
+      "search_teachers": "Введи для пошуку",
       "no_movies_in_collection": "🗑 You don't have any movies in your collection. Go add some!"
     },
     "search": {
@@ -70,7 +70,8 @@
       "about": "❓ Обо мне",
       "support": "💰 Поддержать",
       "contact": "✍️ Обратная связь",
-      "teachers": "Вчителі"
+      "teachers": "Вчителі",
+      "scheldure": "Розклад"
     }
   },
   "other": {
