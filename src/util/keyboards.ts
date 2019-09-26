@@ -47,3 +47,28 @@ export const getMainKeyboard = (ctx: ContextMessageUpdate) => {
     mainKeyboardContact
   };
 };
+
+
+/**
+ * Returns scheldure & back keyboard
+ * @param ctx - telegram context
+ */
+export const getScheldureBoard = (ctx: ContextMessageUpdate) => {
+  const scheldureKeyBoardToday = ctx.i18n.t('keyboards.scheldure_keyboard.today');
+  const scheldureKeyBoardTommorow = ctx.i18n.t('keyboards.scheldure_keyboard.tommorow');
+  const scheldureKeyBoardDays = ctx.i18n.t('keyboards.scheldure_keyboard.days_of_week');
+  const scheldureKeyBoardBack = ctx.i18n.t('keyboards.back_keyboard.back');
+  let scheldureKeyBoard: any = Markup.keyboard([
+    [scheldureKeyBoardToday, scheldureKeyBoardTommorow],
+    [scheldureKeyBoardDays, scheldureKeyBoardBack]
+  ]);
+  scheldureKeyBoard = scheldureKeyBoard.resize().extra();
+
+  return {
+    scheldureKeyBoard,
+    scheldureKeyBoardToday,
+    scheldureKeyBoardTommorow,
+    scheldureKeyBoardDays,
+    scheldureKeyBoardBack
+  };
+};

@@ -2,7 +2,7 @@ import { ContextMessageUpdate } from 'telegraf';
 import { match } from 'telegraf-i18n';
 import Stage from 'telegraf/stage';
 import Scene from 'telegraf/scenes/base';
-import { getTeachers } from './helpers';
+import { getTeachersHTML } from './helpers';
 import Teacher from '../../models/Teacher';
 import { getMainKeyboard, getBackKeyboard } from '../../util/keyboards';
 import logger from '../../util/logger';
@@ -19,7 +19,7 @@ teachers.enter(async (ctx: ContextMessageUpdate) => {
 
   if (teachers.length) {
     await ctx.reply(ctx.i18n.t('scenes.teachers.list_of_teachers'));
-    await ctx.replyWithHTML(getTeachers(teachers), backKeyboard);
+    await ctx.replyWithHTML(getTeachersHTML(teachers), backKeyboard);
     await ctx.reply(ctx.i18n.t('scenes.teachers.search_teachers'));
   } else {
     await ctx.reply(ctx.i18n.t('scenes.movies.no_movies_in_collection'), backKeyboard);
@@ -51,7 +51,7 @@ teachers.on('text', async (ctx: ContextMessageUpdate) => {
   }
 
   await ctx.reply(ctx.i18n.t('scenes.search.list_of_found_teachers'))
-  await ctx.replyWithHTML(getTeachers(teachers));
+  await ctx.replyWithHTML(getTeachersHTML(teachers));
 });
 
 export default teachers;

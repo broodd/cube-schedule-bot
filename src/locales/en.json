@@ -37,7 +37,7 @@
       "welcome_to_search": "🚀 Activating search engine! Just type the title in and let's go!",
       "no_movies_found": "🗑 No movies were found... Try to specify your request",
 
-      "no_found": "🗑 Нічого не знайдено... Попробуй знову",
+      "no_found": "🗑 Not found, try again",
       "list_of_found_teachers": "🔎 Список знайдених вчителів"
     },
     "settings": {
@@ -50,6 +50,17 @@
       "back_button": "◀️ Back",
       "settings": "Settings"
     },
+    "scheldure": {
+      "lessons": "les",
+      "not_found": "You dont have scheldure",
+      "days": {
+        "0": "Monday",
+        "1": "Tuesday",
+        "2": "Wednesday",
+        "3": "Thurday",
+        "4": "Friday"
+      }
+    },
     "contact": {
       "write_to_the_creator": "🤔 Here you can leave a message for the Creator! Be wise though, try to express your minds fully and clearly within one message!",
       "message_delivered": "📬 Your message has been delivered!"
@@ -57,7 +68,8 @@
   },
   "shared": {
     "what_next": "✋ Hey, what are you up to?",
-    "something_went_wrong": "❌ Something went wrong. Try one more time.."
+    "something_went_wrong": "❌ Something went wrong. Try one more time..",
+    "no_found": "🗑 Not found, try again"
   },
   "keyboards": {
     "back_keyboard": {
@@ -72,6 +84,11 @@
       "contact": "✍️ Contact",
       "teachers": "Teachers",
       "scheldure": "Scheldure"
+    },
+    "scheldure_keyboard": {
+      "today": "Today",
+      "tommorow": "Tommorow",
+      "days_of_week": "Days of week"
     }
   },
   "other": {

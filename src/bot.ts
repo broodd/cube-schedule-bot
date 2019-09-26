@@ -202,7 +202,7 @@ mongoose.connection.on('open', () => {
     logger.error(undefined, 'Global error has happened, %O', error);
   });
 
-  setInterval(checkUnreleasedMovies, 86400000);
+  // setInterval(checkUnreleasedMovies, 86400000);
 
   process.env.NODE_ENV === 'production' ? startProdMode(bot) : startDevMode(bot);
 });
@@ -210,9 +210,9 @@ mongoose.connection.on('open', () => {
 function startDevMode(bot: Telegraf<ContextMessageUpdate>) {
   logger.debug(undefined, 'Starting a bot in development mode');
 
-  rp(`https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/deleteWebhook`).then(() =>
-    bot.startPolling()
-  );
+  bot.startPolling()
+  // rp(`https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/deleteWebhook`).then(() =>
+  // );
 }
 
 async function startProdMode(bot: Telegraf<ContextMessageUpdate>) {

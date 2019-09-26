@@ -7,6 +7,7 @@ declare module 'telegraf' {
     i18n: I18n;
     scene: any;
     session: {
+      scheldure: any[]
       movies: IMovie[] | ISearchResult[];
       settingsScene: {
         messagesToDelete: any[];
@@ -14,6 +15,7 @@ declare module 'telegraf' {
       language: 'en' | 'ru';
     };
     movie: any;
+    scheldure: any[];
     webhookReply: boolean;
   }
 }
