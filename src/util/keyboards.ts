@@ -29,11 +29,14 @@ export const getMainKeyboard = (ctx: ContextMessageUpdate) => {
   const mainKeyboardContact = ctx.i18n.t('keyboards.main_keyboard.contact');
   const mainKeyboardTeachers = ctx.i18n.t('keyboards.main_keyboard.teachers');
   const mainKeyboardScheldure = ctx.i18n.t('keyboards.main_keyboard.scheldure');
+  const mainKeyboardClassmates = ctx.i18n.t('keyboards.main_keyboard.classmates');
+  const mainKeyboardMem = ctx.i18n.t('other.mem');
   let mainKeyboard: any = Markup.keyboard([
     [mainKeyboardSearchMovies, mainKeyboardMyCollection] as any,
     [mainKeyboardSettings, mainKeyboardAbout],
     [mainKeyboardSupport, mainKeyboardContact],
-    [mainKeyboardScheldure, mainKeyboardTeachers]
+    [mainKeyboardScheldure, mainKeyboardMem],
+    [mainKeyboardClassmates, mainKeyboardTeachers]
   ]);
   mainKeyboard = mainKeyboard.resize().extra();
 
@@ -44,7 +47,11 @@ export const getMainKeyboard = (ctx: ContextMessageUpdate) => {
     mainKeyboardSettings,
     mainKeyboardAbout,
     mainKeyboardSupport,
-    mainKeyboardContact
+    mainKeyboardContact,
+    mainKeyboardScheldure,
+    mainKeyboardTeachers,
+    mainKeyboardClassmates,
+    mainKeyboardMem
   };
 };
 

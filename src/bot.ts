@@ -4,7 +4,6 @@ import fs from 'fs';
 import path from 'path';
 import Telegraf, { ContextMessageUpdate, Extra, Markup } from 'telegraf';
 import TelegrafI18n, { match } from 'telegraf-i18n';
-import Stage from 'telegraf/stage';
 import session from 'telegraf/session';
 import mongoose from 'mongoose';
 import rp from 'request-promise';
@@ -12,23 +11,17 @@ import User from './models/User';
 import logger from './util/logger';
 
 import about from './controllers/about';
-import startScene from './controllers/start';
-import searchScene from './controllers/search';
-import moviesScene from './controllers/movies';
-import settingsScene from './controllers/settings';
-import contactScene from './controllers/contact';
-import teachersScene from './controllers/teachers';
-import scheldureScene from './controllers/scheldure';
-import adminScene from './controllers/admin';
 
 import { checkUnreleasedMovies } from './util/notifier';
 import asyncWrapper from './util/error-handler';
 import { getMainKeyboard } from './util/keyboards';
 import { updateLanguage } from './util/language';
+import { showMem } from './util/mem';
 import { updateUserTimestamp } from './middlewares/update-user-timestamp';
 import { getUserInfo } from './middlewares/user-info';
 import { isAdmin } from './middlewares/is-admin';
 import Telegram from './telegram';
+import stage from './stage';
 import Teacher from './models/Teacher';
 
 mongoose.connect(`mongodb://localhost:27017/${process.env.DATABASE_HOST}`, {
@@ -46,16 +39,6 @@ mongoose.connection.on('error', err => {
 
 mongoose.connection.on('open', () => {
   const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
-  const stage = new Stage([
-    startScene,
-    searchScene,
-    moviesScene,
-    settingsScene,
-    contactScene,
-    teachersScene,
-    scheldureScene,
-    adminScene
-  ]);
   const i18n = new TelegrafI18n({
     defaultLanguage: 'en',
     directory: path.resolve(__dirname, 'locales'),
@@ -189,6 +172,20 @@ mongoose.connection.on('open', () => {
     asyncWrapper(async (ctx: ContextMessageUpdate) => await ctx.scene.enter('admin'))
   );
 
+  bot.action(
+    /mem/,
+    asyncWrapper(async (ctx: ContextMessageUpdate) => {
+      await showMem(ctx);
+
+      await ctx.answerCbQuery();
+    })
+  );
+
+  bot.hears(
+    /(.*mem)/,
+    asyncWrapper(async (ctx: ContextMessageUpdate) => await showMem(ctx))
+  );
+
   bot.hears(/(.*?)/, async (ctx: ContextMessageUpdate) => {
     logger.debug(ctx, 'Default handler has fired');
     const user = await User.findById(ctx.from.id);
@@ -210,9 +207,9 @@ mongoose.connection.on('open', () => {
 function startDevMode(bot: Telegraf<ContextMessageUpdate>) {
   logger.debug(undefined, 'Starting a bot in development mode');
 
-  bot.startPolling()
-  // rp(`https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/deleteWebhook`).then(() =>
-  // );
+  rp(`https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/deleteWebhook`).then(() =>
+    bot.startPolling()
+  );
 }
 
 async function startProdMode(bot: Telegraf<ContextMessageUpdate>) {

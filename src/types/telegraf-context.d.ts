@@ -6,14 +6,17 @@ declare module 'telegraf' {
   interface ContextMessageUpdate {
     i18n: I18n;
     scene: any;
+    wizard: any;
     session: {
       scheldure: any[]
       movies: IMovie[] | ISearchResult[];
       settingsScene: {
         messagesToDelete: any[];
       };
-      language: 'en' | 'ru';
+      language: 'en' | 'uk';
     };
+    userinfo: any;
+    day: number;
     movie: any;
     scheldure: any[];
     webhookReply: boolean;

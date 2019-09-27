@@ -34,7 +34,7 @@ export function getLanguageKeyboard() {
     m.inlineKeyboard(
       [
         m.callbackButton(`English`, JSON.stringify({ a: 'languageChange', p: 'en' }), false),
-        m.callbackButton(`Русский`, JSON.stringify({ a: 'languageChange', p: 'ru' }), false)
+        m.callbackButton(`Українська`, JSON.stringify({ a: 'languageChange', p: 'uk' }), false)
       ],
       {}
     )

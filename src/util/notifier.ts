@@ -11,32 +11,6 @@ import telegram from '../telegram';
 export async function checkUnreleasedMovies() {
   logger.debug(undefined, 'Starting to check unreleased movies');
 
-  const unreleasedMovies = await Movie.find({ released: false });
-
-  for (const movie of unreleasedMovies) {
-    await sleep(0.5);
-    const checkResult = await releaseChecker[movie.language as 'en' | 'ru']({
-      id: movie._id,
-      title: movie.title,
-      year: movie.year
-    });
-
-    if (checkResult) {
-      logger.debug(undefined, 'Movie has been released, %O', movie);
-      await notifyAndUpdateUsers(movie);
-      await Movie.findOneAndUpdate(
-        {
-          _id: movie._id
-        },
-        {
-          released: false
-        },
-        {
-          new: true
-        }
-      );
-    }
-  }
 }
 
 /**

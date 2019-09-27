@@ -8,7 +8,7 @@ import { saveToSession } from './session';
  * @param ctx - telegram context
  * @param newLang - new language
  */
-export async function updateLanguage(ctx: ContextMessageUpdate, newLang: 'en' | 'ru') {
+export async function updateLanguage(ctx: ContextMessageUpdate, newLang: 'en' | 'uk') {
   logger.debug(ctx, 'Updating language for user to %s', newLang);
   await User.findOneAndUpdate(
     { _id: ctx.from.id },

@@ -19,5 +19,5 @@ const checkRelease = (checkers: Checker[]) => async (config: ICheckerConfig) => 
 
 export const releaseChecker = {
   en: checkRelease(englishReleaseCheckers),
-  ru: checkRelease(russianReleaseCheckers)
+  uk: checkRelease(russianReleaseCheckers)
 };

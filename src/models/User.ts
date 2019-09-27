@@ -4,11 +4,14 @@ import { IMovie } from './Movie';
 export interface IUser extends Document {
   _id: string;
   created: number;
+  nickname: string;
   username: string;
   name: string;
-  observableMovies: IMovie[];
+  surname: string;
+  phones: string[];
   lastActivity: number;
-  language: 'en' | 'ru';
+  language: 'en' | 'uk';
+  observableMovies: IMovie[];
   totalMovies: number;
 }
 
@@ -16,8 +19,11 @@ export const UserSchema = new mongoose.Schema(
   {
     _id: String,
     created: Number,
+    nickname: String,
     username: String,
     name: String,
+    surname: String,
+    phones: [String],
     observableMovies: [
       {
         type: String,

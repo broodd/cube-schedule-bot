@@ -1,5 +1,4 @@
 import { ContextMessageUpdate } from 'telegraf';
-import { IMovie } from '../../models/Movie';
 import rp from 'request-promise'
 
 /**
@@ -16,7 +15,7 @@ export async function getScheldure(ctx: ContextMessageUpdate, next: Function) {
     url: 'http://rozklad.nung.edu.ua/api/schedules.php',
     qs: {
       group_name: 'ІП-19-1К',
-      week: 2
+      // week: 2
     }
   }
   let response = await rp(options)

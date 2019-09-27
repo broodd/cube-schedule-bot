@@ -15,7 +15,7 @@ export async function write(ctx: ContextMessageUpdate, recipient: string, messag
     await ctx.reply(`Successfully sent message to: ${recipient}, content: ${message}`);
   } else if (recipient.includes('all')) {
     // Write to everyone
-    const SUPPORTED_LANGUAGES = ['en', 'ru'];
+    const SUPPORTED_LANGUAGES = ['en', 'uk'];
     const language = recipient.split('.')[1];
 
     if (!SUPPORTED_LANGUAGES.includes(language)) {

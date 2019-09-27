@@ -15,3 +15,7 @@ export const languageChangeAction = async (ctx: ContextMessageUpdate) => {
 
   await ctx.answerCbQuery();
 };
+
+export const backAction = async (ctx: ContextMessageUpdate) => {
+  await ctx.wizard.back();
+};

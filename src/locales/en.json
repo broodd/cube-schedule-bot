@@ -4,7 +4,8 @@
       "welcome_back": "Glad to see you back! Now you can continue watching after the releases of your favorite movies! What do you want to do now?",
       "new_account": "Account has been created successfully! Before start doing stuff with me, please read a short instruction about who I am and how I can help you 😊",
       "bot_description": "<b>🔻 I'm currently in open beta test and under heavy development. Therefore, errors may occur. Do not hesitate to contact the Creator from under ✍️ Contact section\n\n</b>🔻 My name is Eve and I will help you to track upcoming torrent movies. Use search, add them to your collection and I'll write back to you once the movie released in a good quality\n\n🔻 As for now, I can only search for movies, but soon there will be TV Shows search together with some other cool functionality\n\n🔻 You can tell me what to do using Telegram keyboard. To open it, press the icon at the right bottom corner\n\n🔻 You can specify movie's year to get more relevant results. Use square brackets, for instance: star wars [2003]\n\n🔻 If something is broken, write /saveme and I'll do my best to fix it\n\n🔻 More information can be found under ❓About section\n\n🔻 Hope you enjoy using me!\n\nP.S. I'm also open source now! You can check me out here: https://github.com/dmbaranov/evemovies-bot",
-      "lets_go": "Let's go!"
+      "lets_go": "Let's go!",
+      "userinfo": "Your information"
     },
     "about": {
       "main": "Hey! First of all, thanks for activating me!\n\nHave you ever had a moments when you see a trailer of cool movie and give yourself a promise to watch it? Then it appears to be 2 or 3 months until the release of this movie and you simply forget about it..\n\nMy author was in such situation quite a lot of time. And that's exactly why he created me. My name is Eve and I help him to track any movies he wants - as soon as they're available on torrents, I'm sending him a message about it and he never forgets to watch them anymore. I can help you with it as well! Just go search for a movie and add it to your collection and I'll write you back once you can watch it! If you want to check my source code, you could do it right here: https://github.com/dmbaranov/evemovies-bot"
@@ -22,7 +23,7 @@
       "list_of_teachers": "This is list of your teachers",
       "back_button": "◀️ Back",
       "delete_button": "❌ Delete",
-      "search_teachers": "You can input for search",
+      "search_teachers": "🔎 You can input for search",
       "no_movies_in_collection": "🗑 You don't have any movies in your collection. Go add some!"
     },
     "search": {
@@ -51,7 +52,8 @@
       "settings": "Settings"
     },
     "scheldure": {
-      "lessons": "les",
+      "choose_day": "Choose a day",
+      "lessons": "lessons.",
       "not_found": "You dont have scheldure",
       "days": {
         "0": "Monday",
@@ -82,8 +84,9 @@
       "about": "❓ About",
       "support": "💰 Donation",
       "contact": "✍️ Contact",
-      "teachers": "Teachers",
-      "scheldure": "Scheldure"
+      "scheldure": "📅 Scheldure",
+      "teachers": "👨‍🏫 Teachers",
+      "classmates": "👥 Classmates"
     },
     "scheldure_keyboard": {
       "today": "Today",
@@ -94,6 +97,7 @@
   "other": {
     "movie_has_been_released": "🎉 Movie ${movie} has been released!",
     "default_handler": "🚧 Hey, please choose a section with the Telegram keyboard before typing anything",
-    "support": "🤝 If you like everything and want to say thanks me and the Creator, you can do it using these options:"
+    "support": "🤝 If you like everything and want to say thanks me and the Creator, you can do it using these options:",
+    "mem": "😎 mem"
   }
 }

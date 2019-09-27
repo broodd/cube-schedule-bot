@@ -19,7 +19,7 @@ scheldure.enter(async (ctx: ContextMessageUpdate) => {
 });
 
 scheldure.leave(async (ctx: ContextMessageUpdate) => {
-  logger.debug(ctx, 'Leaves teacher scene');
+  logger.debug(ctx, 'Leaves scheldure scene');
   const { mainKeyboard } = getMainKeyboard(ctx);
   await ctx.reply(ctx.i18n.t('shared.what_next'), mainKeyboard);
 });
@@ -36,7 +36,14 @@ scheldure.hears(match('keyboards.scheldure_keyboard.tommorow'), getScheldure, (c
 });
 
 scheldure.hears(match('keyboards.scheldure_keyboard.days_of_week'), getScheldure, (ctx: ContextMessageUpdate) => {
-  ctx.reply('Вибери день', getScheldureDaysMenu(ctx));
+  ctx.reply(ctx.i18n.t('scenes.scheldure.choose_day'), getScheldureDaysMenu(ctx));
+});
+
+scheldure.action(/day/, getScheldure, async (ctx: ContextMessageUpdate) => {
+  const { p } = JSON.parse(ctx.callbackQuery.data);
+  
+  await ctx.replyWithHTML(getScheldureHTML(ctx, p + 1))
+  await ctx.answerCbQuery();
 });
 
 export default scheldure;

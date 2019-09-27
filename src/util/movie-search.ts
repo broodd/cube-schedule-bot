@@ -5,7 +5,7 @@ import { filmopotok, imdb } from './search-providers';
 export interface ISearchParameters {
   title: string;
   year: number;
-  language: 'ru' | 'en';
+  language: 'uk' | 'en';
 }
 
 export interface ISearchResult {
@@ -52,5 +52,5 @@ const movieSearchWrapper = (provider: Provider) => async (ctx: ContextMessageUpd
 
 export const movieSearch = {
   en: movieSearchWrapper(imdb),
-  ru: movieSearchWrapper(filmopotok)
+  uk: movieSearchWrapper(filmopotok)
 };
