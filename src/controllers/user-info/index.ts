@@ -5,7 +5,8 @@ import WizardScene from 'telegraf/scenes/wizard';
 import logger from '../../util/logger';
 import User from '../../models/User';
 import { getMainKeyboard } from '../../util/keyboards';
-import { getAccountConfirmKeyboard } from './helpers'
+import { getUserInfoConfirmKeyboard, getAccountConfirmKeyboard } from './helpers'
+import { confirmUserInfo } from './actions';
 
 
 const userInfoWizard = new WizardScene('user-info-wizard',
@@ -31,52 +32,34 @@ const userInfoWizard = new WizardScene('user-info-wizard',
 		await ctx.reply(ctx.i18n.t('scenes.start.userinfo'))
 		await ctx.reply(
 			Object.keys(ctx.wizard.state).map(key => ctx.wizard.state[key]).join('\n'),
-			getAccountConfirmKeyboard(ctx)
+			getUserInfoConfirmKeyboard(ctx)
 		)
-	},
-	async (ctx: ContextMessageUpdate) => {
-		logger.debug(ctx, 'User info updated');
-		const uid = String(ctx.from.id);
-		await User.findOneAndUpdate(
-			{ _id: uid },
-			{
-				_id: uid,
-				username: ctx.from.username,
-				nickname: ctx.from.first_name + ' ' + ctx.from.last_name,
-				name: ctx.wizard.state.name,
-				surname: ctx.wizard.state.surname,
-				phones: ctx.wizard.state.phones,
-			},
-			{ upsert: true }
-		);
-		await ctx.scene.leave();
-		// return await ctx.reply('Choose language / Виберіть мову', getLanguageKeyboard());
 	}
 )
 
 userInfoWizard.action(/back/, async (ctx: ContextMessageUpdate) => {
-	console.log('--- back action', );
-	ctx.wizard.selectStep(0)
+	console.log('--- back action');
 	await ctx.answerCbQuery();
+	await ctx.wizard.selectStep(0)
+	await ctx.reply('try_again')
+})
+userInfoWizard.action(/confirmUserInfo/, confirmUserInfo)
+userInfoWizard.action(/confirmAccount/, async (ctx: ContextMessageUpdate) => {
+	await ctx.answerCbQuery();
+	await ctx.scene.leave();
+
+	const { mainKeyboard } = getMainKeyboard(ctx);
+	await ctx.reply(ctx.i18n.t('shared.what_next'), mainKeyboard);
 })
 
-userInfoWizard.action(/okey/, async (ctx: ContextMessageUpdate) => {
-	console.log('--- okey action');
-	ctx.wizard.next()
-	await ctx.answerCbQuery();
+userInfoWizard.use(async (ctx: ContextMessageUpdate, next: Function) => {
+	if ((ctx.message && ctx.message.text) || (ctx.callbackQuery))
+		return next()
 
-	
-	// ctx.scene.reenter()
+	await ctx.wizard.back()
+	await ctx.reply('try_again')
+	// await ctx.answerCbQuery();
+	return;
 })
-
-// userInfoWizard.use(async (ctx: ContextMessageUpdate, next: Function) => {
-// 	if ((ctx.message && ctx.message.text) || (ctx.callbackQuery))
-// 		return next()
-
-// 	await ctx.wizard.back()
-// 	await ctx.reply('try_again')
-// 	await ctx.answerCbQuery();
-// 	return;
-// })
 
 export default userInfoWizard

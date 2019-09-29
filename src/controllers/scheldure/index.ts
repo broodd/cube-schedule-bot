@@ -27,17 +27,27 @@ scheldure.leave(async (ctx: ContextMessageUpdate) => {
 scheldure.command('saveme', leave());
 scheldure.hears(match('keyboards.back_keyboard.back'), leave());
 
-scheldure.hears(match('keyboards.scheldure_keyboard.today'), getScheldure, (ctx: ContextMessageUpdate) => {
-  ctx.replyWithHTML(getScheldureHTML(ctx, moment().day()))
-});
+scheldure.hears(
+	match('keyboards.scheldure_keyboard.today'),
+	getScheldure,
+	(ctx: ContextMessageUpdate) => {
+  	ctx.replyWithHTML(getScheldureHTML(ctx, moment().day()))
+	}
+);
 
-scheldure.hears(match('keyboards.scheldure_keyboard.tommorow'), getScheldure, (ctx: ContextMessageUpdate) => {
-  ctx.replyWithHTML(getScheldureHTML(ctx, moment().day() + 1))
-});
+scheldure.hears(
+	match('keyboards.scheldure_keyboard.tommorow'), 
+	getScheldure, (ctx: ContextMessageUpdate) => {
+		ctx.replyWithHTML(getScheldureHTML(ctx, moment().day() + 1))
+	}
+);
 
-scheldure.hears(match('keyboards.scheldure_keyboard.days_of_week'), getScheldure, (ctx: ContextMessageUpdate) => {
-  ctx.reply(ctx.i18n.t('scenes.scheldure.choose_day'), getScheldureDaysMenu(ctx));
-});
+scheldure.hears(
+	match('keyboards.scheldure_keyboard.days_of_week'),
+	getScheldure, (ctx: ContextMessageUpdate) => {
+		ctx.reply(ctx.i18n.t('scenes.scheldure.choose_day'), getScheldureDaysMenu(ctx));
+	}
+);
 
 scheldure.action(/day/, getScheldure, async (ctx: ContextMessageUpdate) => {
   const { p } = JSON.parse(ctx.callbackQuery.data);

@@ -71,7 +71,7 @@
   "shared": {
     "what_next": "✋ Hey, what are you up to?",
     "something_went_wrong": "❌ Something went wrong. Try one more time..",
-    "no_found": "🗑 Not found, try again"
+    "not_found": "🗑 Not found, try again"
   },
   "keyboards": {
     "back_keyboard": {

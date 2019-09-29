@@ -8,9 +8,12 @@ import moment from 'moment'
  * @param day - number of day
  */
 export function getScheldureByDate(ctx: ContextMessageUpdate, day: number = 1): Scheldure {
+	console.log('--- day', day, moment().day(day).week());
 	let week = moment().week()
-	if (!moment().day() || day > 4) {
+	if (day == 0 || day == 5) {
 		ctx.day = 1
+	}
+	if (day == 5) {
 		week += 1
 	}
 	

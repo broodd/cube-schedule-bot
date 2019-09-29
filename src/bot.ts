@@ -26,7 +26,8 @@ import Teacher from './models/Teacher';
 
 mongoose.connect(`mongodb://localhost:27017/${process.env.DATABASE_HOST}`, {
   useNewUrlParser: true,
-  useFindAndModify: false
+	useFindAndModify: false,
+	useUnifiedTopology: true
 });
 mongoose.connection.on('error', err => {
   logger.error(
@@ -107,7 +108,7 @@ mongoose.connection.on('open', () => {
 		const user = await User.findById(uid);
 		const { mainKeyboard } = getMainKeyboard(ctx);
 
-		ctx.scene.enter('user-info-wizard')
+		ctx.scene.enter('start')
 		
 		if (user) {
 			// await ctx.reply(ctx.i18n.t('scenes.start.welcome_back'), mainKeyboard);
