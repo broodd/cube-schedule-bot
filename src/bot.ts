@@ -53,14 +53,14 @@ mongoose.connection.on('open', () => {
   bot.use(getUserInfo);
 
   bot.command('teacher', asyncWrapper(async (ctx: ContextMessageUpdate) => {
-    var regex = new RegExp(ctx.message.text.split(' ')[1] || '', "ig");
+    const regex = new RegExp(ctx.message.text.split(' ')[1] || '', 'ig');
     const te = await Teacher.find({
       $or: [
         { name: { $regex: regex }, },
         { surname: { $regex: regex }, },
         { fathername: { $regex: regex } }
       ]
-    })
+    });
     // const te = await Teacher.aggregate([
     //   {
     //     $project: {
@@ -94,7 +94,7 @@ mongoose.connection.on('open', () => {
     // await teacher.save()
 
     // await ctx.reply([teacher.name, teacher._id].join(' '))
-  }))
+  }));
 
   bot.command('saveme', async (ctx: ContextMessageUpdate) => {
     logger.debug(ctx, 'User uses /saveme command');
@@ -102,7 +102,19 @@ mongoose.connection.on('open', () => {
     const { mainKeyboard } = getMainKeyboard(ctx);
     await ctx.reply(ctx.i18n.t('shared.what_next'), mainKeyboard);
   });
-  bot.start(asyncWrapper(async (ctx: ContextMessageUpdate) => ctx.scene.enter('start')));
+  bot.start(asyncWrapper(async (ctx: ContextMessageUpdate) => {
+		const uid = String(ctx.from.id);
+		const user = await User.findById(uid);
+		const { mainKeyboard } = getMainKeyboard(ctx);
+
+		ctx.scene.enter('user-info-wizard')
+		
+		if (user) {
+			// await ctx.reply(ctx.i18n.t('scenes.start.welcome_back'), mainKeyboard);
+		} else {
+			// ctx.scene.enter('start')
+		}
+	}));
   bot.hears(
     match('keyboards.main_keyboard.search'),
     updateUserTimestamp,
@@ -172,8 +184,7 @@ mongoose.connection.on('open', () => {
     asyncWrapper(async (ctx: ContextMessageUpdate) => await ctx.scene.enter('admin'))
   );
 
-  bot.action(
-    /mem/,
+  bot.action(/mem/, updateUserTimestamp,
     asyncWrapper(async (ctx: ContextMessageUpdate) => {
       await showMem(ctx);
 
@@ -181,8 +192,7 @@ mongoose.connection.on('open', () => {
     })
   );
 
-  bot.hears(
-    /(.*mem)/,
+  bot.hears(/(.*mem)/, updateUserTimestamp,
     asyncWrapper(async (ctx: ContextMessageUpdate) => await showMem(ctx))
   );
 

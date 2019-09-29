@@ -18,7 +18,10 @@ export interface IUser extends Document {
 export const UserSchema = new mongoose.Schema(
   {
     _id: String,
-    created: Number,
+    created: {
+			type: Number,
+			default: (): number => new Date().getTime()
+		},
     nickname: String,
     username: String,
     name: String,
@@ -30,7 +33,10 @@ export const UserSchema = new mongoose.Schema(
         ref: 'Movie'
       }
     ],
-    lastActivity: Number,
+    lastActivity: {
+			type: Number,
+			default: (): number => new Date().getTime()
+		},
     language: String,
     totalMovies: Number
   },

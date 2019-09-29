@@ -32,9 +32,9 @@ export const getMainKeyboard = (ctx: ContextMessageUpdate) => {
   const mainKeyboardClassmates = ctx.i18n.t('keyboards.main_keyboard.classmates');
   const mainKeyboardMem = ctx.i18n.t('other.mem');
   let mainKeyboard: any = Markup.keyboard([
-    [mainKeyboardSearchMovies, mainKeyboardMyCollection] as any,
-    [mainKeyboardSettings, mainKeyboardAbout],
-    [mainKeyboardSupport, mainKeyboardContact],
+    // [mainKeyboardSearchMovies, mainKeyboardMyCollection],
+    // [mainKeyboardSettings, mainKeyboardAbout],
+    // [mainKeyboardSupport, mainKeyboardContact],
     [mainKeyboardScheldure, mainKeyboardMem],
     [mainKeyboardClassmates, mainKeyboardTeachers]
   ]);

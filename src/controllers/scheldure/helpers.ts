@@ -1,7 +1,6 @@
 import { Extra, Markup, ContextMessageUpdate, Button, CallbackButton } from 'telegraf';
 import { Scheldure } from 'scheldure';
 import moment from 'moment'
-import scheldure from '.';
 
 /**
  * Displays menu with a list of movies
@@ -9,10 +8,13 @@ import scheldure from '.';
  * @param day - number of day
  */
 export function getScheldureByDate(ctx: ContextMessageUpdate, day: number = 1): Scheldure {
-  if (!moment().day() || day > 4)
-    ctx.day = 1
-  
-  const date = moment().day(ctx.day).format('DD.MM.YYYY')
+	let week = moment().week()
+	if (!moment().day() || day > 4) {
+		ctx.day = 1
+		week += 1
+	}
+	
+	const date = moment().day(ctx.day).week(week).format('DD.MM.YYYY')
   
   return ctx.scheldure.find(item => item.date == date)
 }
@@ -38,7 +40,7 @@ export function getScheldureHTML(ctx: ContextMessageUpdate, day: number) {
 }
 
 /**
- * Displays menu with a list of days of week
+ * Displays menu with a list of days of week & mem
  * @param ctx - telegram context
  */
 export function getScheldureDaysMenu(ctx: ContextMessageUpdate,) {
@@ -50,12 +52,11 @@ export function getScheldureDaysMenu(ctx: ContextMessageUpdate,) {
         JSON.stringify({ a: 'day', p: index }),
         false
       )
-    })
-    array.push(m.callbackButton(ctx.i18n.t('other.mem'), 'mem', false)) as any;
+		})
+		array.push(m.callbackButton(ctx.i18n.t('other.mem'), 'mem', false)) as any;
 
     return m.inlineKeyboard(array, {
-      // wrap: (btn: Button, index: number, currentRow: any) => currentRow.length >= (index + 1) / 2
-      wrap: (btn: Button, index: number) => index % 2 == 0
+      colums: 2
     })
   });
 }

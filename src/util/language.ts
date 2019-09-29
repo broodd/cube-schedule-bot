@@ -15,7 +15,7 @@ export async function updateLanguage(ctx: ContextMessageUpdate, newLang: 'en' | 
     {
       language: newLang
     },
-    { new: true }
+    { upsert: true }
   );
 
   saveToSession(ctx, 'language', newLang);
