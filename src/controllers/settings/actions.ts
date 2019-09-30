@@ -33,10 +33,12 @@ export const accountSummaryAction = async (ctx: ContextMessageUpdate) => {
 
   await ctx.editMessageText(
     ctx.i18n.t('scenes.settings.account_summary', {
+      version: process.env.npm_package_version,
       username: user.username,
       id: user._id,
-      totalMovies: user.totalMovies,
-      version: process.env.npm_package_version
+      name: user.name,
+      surname: user.name,
+      group: user.group
     }),
     getAccountSummaryKeyboard(ctx)
   );

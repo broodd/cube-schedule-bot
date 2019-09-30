@@ -9,8 +9,10 @@ export interface IUser extends Document {
   name: string;
   surname: string;
   phones: string[];
+  group: string;
   lastActivity: number;
   language: 'en' | 'uk';
+
   observableMovies: IMovie[];
   totalMovies: number;
 }
@@ -19,25 +21,28 @@ export const UserSchema = new mongoose.Schema(
   {
     _id: String,
     created: {
-			type: Number,
-			default: (): number => new Date().getTime()
+			type: Date,
+			default: Date.now
 		},
     nickname: String,
     username: String,
     name: String,
     surname: String,
     phones: [String],
+    group: String,
+    language: String,
+    lastActivity: {
+      type: Date,
+      default: Date.now
+    },
+
     observableMovies: [
       {
         type: String,
         ref: 'Movie'
       }
     ],
-    lastActivity: {
-			type: Number,
-			default: (): number => new Date().getTime()
-		},
-    language: String,
+    
     totalMovies: Number
   },
   { _id: false }

@@ -22,7 +22,7 @@ teachers.enter(async (ctx: ContextMessageUpdate) => {
     await ctx.replyWithHTML(getTeachersHTML(teachers), backKeyboard);
     await ctx.reply(ctx.i18n.t('scenes.teachers.search_teachers'));
   } else {
-    await ctx.reply(ctx.i18n.t('scenes.movies.no_movies_in_collection'), backKeyboard);
+    await ctx.reply(ctx.i18n.t('scenes.teachers.no_have_teachers'), backKeyboard);
   }
 });
 
@@ -46,11 +46,11 @@ teachers.on('text', async (ctx: ContextMessageUpdate) => {
   })
 
   if (!teachers || !teachers.length) {
-    await ctx.reply(ctx.i18n.t('scenes.search.no_found'));
+    await ctx.reply(ctx.i18n.t('scenes.teachers.not_found'));
     return;
   }
 
-  await ctx.reply(ctx.i18n.t('scenes.search.list_of_found_teachers'))
+  await ctx.reply(ctx.i18n.t('scenes.teachers.list_of_found_teachers'))
   await ctx.replyWithHTML(getTeachersHTML(teachers));
 });
 

@@ -8,16 +8,26 @@ import moment from 'moment'
  * @param day - number of day
  */
 export function getScheldureByDate(ctx: ContextMessageUpdate, day: number = 1): Scheldure {
-	console.log('--- day', day, moment().day(day).week());
-	let week = moment().week()
-	if (day == 0 || day == 5) {
-		ctx.day = 1
-	}
-	if (day == 5) {
-		week += 1
-	}
+  ctx.day = day
+
+  const date = moment().day(day).format('DD.MM.YYYY')
+  
+  
+  // if (!moment().day() || day > 4)
+  //   ctx.day = 1
+
+  // const date = moment().day(ctx.day).format('DD.MM.YYYY')
+  
+	// console.log('--- day', day, moment().day(day).week());
+	// let week = moment().week()
+	// if (day == 0 || day == 5) {
+	// 	ctx.day = 1
+	// }
+	// if (day == 5) {
+	// 	week += 1
+	// }
 	
-	const date = moment().day(ctx.day).week(week).format('DD.MM.YYYY')
+	// const date = moment().day(ctx.day).week(week).format('DD.MM.YYYY')
   
   return ctx.scheldure.find(item => item.date == date)
 }
@@ -59,7 +69,7 @@ export function getScheldureDaysMenu(ctx: ContextMessageUpdate,) {
 		array.push(m.callbackButton(ctx.i18n.t('other.mem'), 'mem', false)) as any;
 
     return m.inlineKeyboard(array, {
-      colums: 2
+      wrap: (btn: Button, index: number) => index % 2 == 0
     })
   });
 }

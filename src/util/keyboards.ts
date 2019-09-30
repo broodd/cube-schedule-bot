@@ -33,10 +33,10 @@ export const getMainKeyboard = (ctx: ContextMessageUpdate) => {
   const mainKeyboardMem = ctx.i18n.t('other.mem');
   let mainKeyboard: any = Markup.keyboard([
     // [mainKeyboardSearchMovies, mainKeyboardMyCollection],
-    // [mainKeyboardSettings, mainKeyboardAbout],
-    // [mainKeyboardSupport, mainKeyboardContact],
     [mainKeyboardScheldure, mainKeyboardMem],
-    [mainKeyboardClassmates, mainKeyboardTeachers]
+    [mainKeyboardClassmates, mainKeyboardTeachers],
+    [mainKeyboardSettings, mainKeyboardAbout],
+    [mainKeyboardSupport, mainKeyboardContact]
   ]);
   mainKeyboard = mainKeyboard.resize().extra();
 

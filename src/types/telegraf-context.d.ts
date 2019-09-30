@@ -15,7 +15,6 @@ declare module 'telegraf' {
       };
       language: 'en' | 'uk';
     };
-    userinfo: any;
     day: number;
     movie: any;
     scheldure: any[];

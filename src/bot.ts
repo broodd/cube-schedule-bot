@@ -103,19 +103,7 @@ mongoose.connection.on('open', () => {
     const { mainKeyboard } = getMainKeyboard(ctx);
     await ctx.reply(ctx.i18n.t('shared.what_next'), mainKeyboard);
   });
-  bot.start(asyncWrapper(async (ctx: ContextMessageUpdate) => {
-		const uid = String(ctx.from.id);
-		const user = await User.findById(uid);
-		const { mainKeyboard } = getMainKeyboard(ctx);
-
-		ctx.scene.enter('start')
-		
-		if (user) {
-			// await ctx.reply(ctx.i18n.t('scenes.start.welcome_back'), mainKeyboard);
-		} else {
-			// ctx.scene.enter('start')
-		}
-	}));
+  bot.start(asyncWrapper(async (ctx: ContextMessageUpdate) => ctx.scene.enter('start')));
   bot.hears(
     match('keyboards.main_keyboard.search'),
     updateUserTimestamp,
@@ -185,7 +173,7 @@ mongoose.connection.on('open', () => {
     asyncWrapper(async (ctx: ContextMessageUpdate) => await ctx.scene.enter('admin'))
   );
 
-  bot.action(/mem/, updateUserTimestamp,
+  bot.action(/mem/,
     asyncWrapper(async (ctx: ContextMessageUpdate) => {
       await showMem(ctx);
 
@@ -193,7 +181,8 @@ mongoose.connection.on('open', () => {
     })
   );
 
-  bot.hears(/(.*mem)/, updateUserTimestamp,
+  bot.hears(
+    match('keyboards.main_keyboard.mem'),
     asyncWrapper(async (ctx: ContextMessageUpdate) => await showMem(ctx))
   );
 
