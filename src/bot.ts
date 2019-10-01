@@ -53,50 +53,6 @@ mongoose.connection.on('open', () => {
   bot.use(stage.middleware());
   bot.use(getUserInfo);
 
-  bot.command('teacher', asyncWrapper(async (ctx: ContextMessageUpdate) => {
-    const regex = new RegExp(ctx.message.text.split(' ')[1] || '', 'ig');
-    const te = await Teacher.find({
-      $or: [
-        { name: { $regex: regex }, },
-        { surname: { $regex: regex }, },
-        { fathername: { $regex: regex } }
-      ]
-    });
-    // const te = await Teacher.aggregate([
-    //   {
-    //     $project: {
-    //       s_field: {
-    //         $concatArrays: [["$name"], ["$surname"], ["$fathername"], ["$lessons"]]
-    //       }
-    //     },
-    //   },
-    //   {
-    //     $match: {
-    //       s_field: {
-    //         $regex: /Ната/
-    //       }
-    //     }
-    //   },
-    //   {
-    //     $project: {
-    //       _id: 0
-    //     }
-    //   }
-    // ])
-    console.log('---', te);
-
-    // const teacher = new Teacher({
-    //   name: 'Петро',
-    //   surname: 'Тупий',
-    //   fathername: 'Підор',
-    //   phones: ['380967756901', '785452'],
-    //   lessons: ['Вища математика', 'Unix OS']
-    // })
-    // await teacher.save()
-
-    // await ctx.reply([teacher.name, teacher._id].join(' '))
-  }));
-
   bot.command('saveme', async (ctx: ContextMessageUpdate) => {
     logger.debug(ctx, 'User uses /saveme command');
 
@@ -104,15 +60,21 @@ mongoose.connection.on('open', () => {
     await ctx.reply(ctx.i18n.t('shared.what_next'), mainKeyboard);
   });
   bot.start(asyncWrapper(async (ctx: ContextMessageUpdate) => ctx.scene.enter('start')));
+
   bot.hears(
-    match('keyboards.main_keyboard.search'),
+    match('keyboards.main_keyboard.schedule'),
     updateUserTimestamp,
-    asyncWrapper(async (ctx: ContextMessageUpdate) => await ctx.scene.enter('search'))
+    asyncWrapper(async (ctx: ContextMessageUpdate) => await ctx.scene.enter('schedule'))
   );
   bot.hears(
-    match('keyboards.main_keyboard.movies'),
+    match('keyboards.main_keyboard.classmates'),
     updateUserTimestamp,
-    asyncWrapper(async (ctx: ContextMessageUpdate) => await ctx.scene.enter('movies'))
+    asyncWrapper(async (ctx: ContextMessageUpdate) => await ctx.scene.enter('classmates'))
+  );
+  bot.hears(
+    match('keyboards.main_keyboard.teachers'),
+    updateUserTimestamp,
+    asyncWrapper(async (ctx: ContextMessageUpdate) => await ctx.scene.enter('teachers'))
   );
   bot.hears(
     match('keyboards.main_keyboard.settings'),
@@ -124,16 +86,6 @@ mongoose.connection.on('open', () => {
     match('keyboards.main_keyboard.contact'),
     updateUserTimestamp,
     asyncWrapper(async (ctx: ContextMessageUpdate) => await ctx.scene.enter('contact'))
-  );
-  bot.hears(
-    match('keyboards.main_keyboard.teachers'),
-    updateUserTimestamp,
-    asyncWrapper(async (ctx: ContextMessageUpdate) => await ctx.scene.enter('teachers'))
-  );
-  bot.hears(
-    match('keyboards.main_keyboard.scheldure'),
-    updateUserTimestamp,
-    asyncWrapper(async (ctx: ContextMessageUpdate) => await ctx.scene.enter('scheldure'))
   );
   bot.hears(
     match('keyboards.back_keyboard.back'),
@@ -167,12 +119,6 @@ mongoose.connection.on('open', () => {
     })
   );
 
-  bot.hears(
-    /(.*admin)/,
-    isAdmin,
-    asyncWrapper(async (ctx: ContextMessageUpdate) => await ctx.scene.enter('admin'))
-  );
-
   bot.action(/mem/,
     asyncWrapper(async (ctx: ContextMessageUpdate) => {
       await showMem(ctx);
@@ -184,6 +130,12 @@ mongoose.connection.on('open', () => {
   bot.hears(
     match('keyboards.main_keyboard.mem'),
     asyncWrapper(async (ctx: ContextMessageUpdate) => await showMem(ctx))
+  );
+
+  bot.hears(
+    /(.*admin)/,
+    isAdmin,
+    asyncWrapper(async (ctx: ContextMessageUpdate) => await ctx.scene.enter('admin'))
   );
 
   bot.hears(/(.*?)/, async (ctx: ContextMessageUpdate) => {

@@ -8,13 +8,11 @@ export interface IUser extends Document {
   username: string;
   name: string;
   surname: string;
+  fullName: string;
   phones: string[];
   group: string;
   lastActivity: number;
   language: 'en' | 'uk';
-
-  observableMovies: IMovie[];
-  totalMovies: number;
 }
 
 export const UserSchema = new mongoose.Schema(
@@ -45,14 +43,22 @@ export const UserSchema = new mongoose.Schema(
     
     totalMovies: Number
   },
-  { _id: false }
+  {
+    _id: false,
+    toObject: { virtuals: true },
+    toJSON: { virtuals: true }
+  }
 );
 
 // ficha, cool
-UserSchema.pre('find', function() {
-  this.populate('observableMovies');
-}).pre('findOne', function() {
-  this.populate('observableMovies');
+// UserSchema.pre('find', function() {
+//   this.populate('observableMovies');
+// }).pre('findOne', function() {
+//   this.populate('observableMovies');
+// });
+
+UserSchema.virtual('fullName').get(function () {
+  return [this.surname, this.name].join(' ');
 });
 
 const User = mongoose.model<IUser>('User', UserSchema);

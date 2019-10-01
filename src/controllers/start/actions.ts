@@ -4,6 +4,7 @@ import { sleep } from '../../util/common';
 import { updateLanguage } from '../../util/language';
 import logger from '../../util/logger';
 import User from '../../models/User';
+import { saveToSession } from '../../util/session';
 
 
 export const languageChangeAction = async (ctx: ContextMessageUpdate) => {
@@ -18,7 +19,7 @@ export const languageChangeAction = async (ctx: ContextMessageUpdate) => {
 export const confirmUserInfo = async (ctx: ContextMessageUpdate) => {
   logger.debug(ctx, 'User info updated');
   const uid = String(ctx.from.id);
-  await User.findOneAndUpdate(
+  const user = await User.findOneAndUpdate(
     { _id: uid },
     {
       _id: uid,

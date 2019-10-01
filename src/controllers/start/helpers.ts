@@ -27,14 +27,12 @@ export function getUserInfoConfirmKeyboard(ctx: ContextMessageUpdate) {
     m.inlineKeyboard(
       [
         m.callbackButton(
-          // ctx.i18n.t('scenes.start.lets_go'),
-          'Back',
+          ctx.i18n.t('scenes.start.back'),
           JSON.stringify({ a: 'back' }),
           false
         ),
         m.callbackButton(
-          // ctx.i18n.t('scenes.start.lets_go'),
-          'Okey',
+          ctx.i18n.t('scenes.start.next'),
           JSON.stringify({ a: 'confirmUserInfo' }),
           false
         )

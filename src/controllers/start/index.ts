@@ -17,9 +17,10 @@ start.enter(async (ctx: ContextMessageUpdate) => {
 	const uid = String(ctx.from.id);
 	const user = await User.findById(uid);
 	
-	if (false) {
+	if (user) {
 		const { mainKeyboard } = getMainKeyboard(ctx);
 		await ctx.reply(ctx.i18n.t('scenes.start.welcome_back'), mainKeyboard);
+		ctx.scene.leave()
 	} else {
 		logger.debug(ctx, 'New user has been created');
 
@@ -30,7 +31,7 @@ start.enter(async (ctx: ContextMessageUpdate) => {
 start.action(/languageChange/, languageChangeAction);
 
 start.hears(/(.*?)/, async (ctx: ContextMessageUpdate) => {
-	await ctx.reply('choose some');
+	await ctx.reply(ctx.i18n.t('scenes.start.choose_some'));
 });
 
 export default start;

@@ -28,7 +28,7 @@ export const getMainKeyboard = (ctx: ContextMessageUpdate) => {
   const mainKeyboardSupport = ctx.i18n.t('keyboards.main_keyboard.support');
   const mainKeyboardContact = ctx.i18n.t('keyboards.main_keyboard.contact');
   const mainKeyboardTeachers = ctx.i18n.t('keyboards.main_keyboard.teachers');
-  const mainKeyboardScheldure = ctx.i18n.t('keyboards.main_keyboard.scheldure');
+  const mainKeyboardScheldure = ctx.i18n.t('keyboards.main_keyboard.schedule');
   const mainKeyboardClassmates = ctx.i18n.t('keyboards.main_keyboard.classmates');
   const mainKeyboardMem = ctx.i18n.t('other.mem');
   let mainKeyboard: any = Markup.keyboard([
@@ -57,7 +57,7 @@ export const getMainKeyboard = (ctx: ContextMessageUpdate) => {
 
 
 /**
- * Returns scheldure & back keyboard
+ * Returns schedule & back keyboard
  * @param ctx - telegram context
  */
 export const getScheldureBoard = (ctx: ContextMessageUpdate) => {

@@ -8,16 +8,16 @@ declare module 'telegraf' {
     scene: any;
     wizard: any;
     session: {
-      scheldure: any[]
-      movies: IMovie[] | ISearchResult[];
+      // schedule: any[]
+      user: any;
       settingsScene: {
         messagesToDelete: any[];
       };
       language: 'en' | 'uk';
     };
     day: number;
-    movie: any;
-    scheldure: any[];
+    user: any;
+    schedule: any[];
     webhookReply: boolean;
   }
 }
