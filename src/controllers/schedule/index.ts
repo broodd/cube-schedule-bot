@@ -16,7 +16,7 @@ schedule.enter(async (ctx: ContextMessageUpdate) => {
   logger.debug(ctx, 'Enters schedule scene');
   const { scheldureKeyBoard } = getScheldureBoard(ctx);
 
-  await ctx.reply(ctx.i18n.t('scenes.movies.no_movies_in_collection'), scheldureKeyBoard);
+  await ctx.reply(ctx.i18n.t('scenes.schedule.what_next'), scheldureKeyBoard);
 });
 
 schedule.leave(async (ctx: ContextMessageUpdate) => {

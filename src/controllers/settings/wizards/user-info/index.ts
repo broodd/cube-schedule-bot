@@ -1,16 +1,16 @@
+
 import rp from 'request-promise';
 import { ContextMessageUpdate, Markup } from 'telegraf';
 import WizardScene from 'telegraf/scenes/wizard';
-import { getMainKeyboard } from '../../../../util/keyboards';
-import { getUserInfoConfirmKeyboard } from './helpers'
-import { confirmUserInfo } from './actions';
+import User from '../../../../models/User'
+import { getUserInfoConfirmKeyboard } from './helpers';
 
 
-const userInfoWizard = new WizardScene('user-info-wizard',
+const editUserInfoWizard = new WizardScene('edit-user-info-wizard',
   async (ctx: ContextMessageUpdate) => {
     await ctx.reply(ctx.i18n.t('scenes.start.input_real_data'))
     await ctx.reply(ctx.i18n.t('scenes.start.input_group_name'))
-    
+
     return ctx.wizard.next()
   },
   async (ctx: ContextMessageUpdate) => {
@@ -68,31 +68,46 @@ const userInfoWizard = new WizardScene('user-info-wizard',
   }
 )
 
-// action confirmUserInfo => save info and show bot description
-userInfoWizard.action(/confirmUserInfo/, confirmUserInfo)
-
 // action back => input user data
-userInfoWizard.action(/back/, async (ctx: ContextMessageUpdate) => {
+editUserInfoWizard.action(/back/, async (ctx: ContextMessageUpdate) => {
   await ctx.answerCbQuery();
   await ctx.wizard.selectStep(0)
   await ctx.reply(ctx.i18n.t('scenes.start.try_again'))
 })
 
-userInfoWizard.action(/confirmAccount/, async (ctx: ContextMessageUpdate) => {
-  await ctx.answerCbQuery();
-  await ctx.scene.leave();
+editUserInfoWizard.action(/confirmUserInfo/, async (ctx: ContextMessageUpdate) => {
+  const uid = String(ctx.from.id);
+  const user = await User.findOneAndUpdate(
+    { _id: uid },
+    {
+      _id: uid,
+      username: ctx.from.username,
+      nickname: ctx.from.first_name + ' ' + ctx.from.last_name,
+      name: ctx.wizard.state.name,
+      surname: ctx.wizard.state.surname,
+      phones: ctx.wizard.state.phones,
+      group: ctx.wizard.state.group,
+      language: ctx.session.language
+    },
+    {
+      setDefaultsOnInsert: true,
+      new: true,
+      upsert: true
+    }
+  );
 
-  const { mainKeyboard } = getMainKeyboard(ctx);
-  await ctx.reply(ctx.i18n.t('shared.what_next'), mainKeyboard);
+  await ctx.answerCbQuery();
+  
+  await ctx.scene.leave();
+  await ctx.scene.enter('settings')
 })
 
-userInfoWizard.use(async (ctx: ContextMessageUpdate, next: Function) => {
+editUserInfoWizard.use(async (ctx: ContextMessageUpdate, next: Function) => {
   if ((ctx.message && ctx.message.text) || (ctx.callbackQuery))
     return next()
 
-  // await ctx.wizard.back()
   await ctx.reply(ctx.i18n.t('scenes.start.try_again'))
   return;
 })
 
-export default userInfoWizard
+export default editUserInfoWizard

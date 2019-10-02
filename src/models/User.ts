@@ -1,5 +1,4 @@
 import mongoose, { Document } from 'mongoose';
-import { IMovie } from './Movie';
 
 export interface IUser extends Document {
   _id: string;

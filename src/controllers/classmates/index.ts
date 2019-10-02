@@ -19,11 +19,11 @@ classmates.enter(async (ctx: ContextMessageUpdate) => {
   });
 
   if (classmates.length) {
-    await ctx.reply(ctx.i18n.t('scenes.teachers.list_of_teachers'));
+    await ctx.reply(ctx.i18n.t('scenes.classmates.list_of_classmates'));
     await ctx.replyWithHTML(getClassmatesHTML(classmates), backKeyboard);
-    await ctx.reply(ctx.i18n.t('scenes.teachers.search_teachers'));
+    await ctx.reply(ctx.i18n.t('scenes.classmates.search_classmates'));
   } else {
-    await ctx.reply(ctx.i18n.t('scenes.teachers.no_have_teachers'), backKeyboard);
+    await ctx.reply(ctx.i18n.t('scenes.classmates.no_have_classmates'), backKeyboard);
   }
 });
 
@@ -42,17 +42,16 @@ classmates.on('text', async (ctx: ContextMessageUpdate) => {
     group: ctx.session.user.group,
     $or: [
       { name: { $regex: regex }, },
-      { surname: { $regex: regex }, },
-      { fathername: { $regex: regex } }
+      { surname: { $regex: regex }, }
     ]
   })
 
   if (!classmates || !classmates.length) {
-    await ctx.reply(ctx.i18n.t('scenes.teachers.not_found'));
+    await ctx.reply(ctx.i18n.t('scenes.classmates.not_found'));
     return;
   }
 
-  await ctx.reply(ctx.i18n.t('scenes.teachers.list_of_found_teachers'))
+  await ctx.reply(ctx.i18n.t('scenes.classmates.list_of_found_classmates'))
   await ctx.replyWithHTML(getClassmatesHTML(classmates));
 });
 

@@ -52,6 +52,11 @@ export function getAccountSummaryKeyboard(ctx: ContextMessageUpdate) {
           ctx.i18n.t('scenes.settings.back_button'),
           JSON.stringify({ a: 'closeAccountSummary' }),
           false
+        ),
+        m.callbackButton(
+          ctx.i18n.t('scenes.settings.edit'),
+          JSON.stringify({ a: 'editAccount' }),
+          false
         )
       ],
       {}

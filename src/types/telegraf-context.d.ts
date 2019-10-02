@@ -1,6 +1,4 @@
 import { I18n } from 'telegraf-i18n';
-import { IMovie } from '../models/Movie';
-import { ISearchResult } from '../util/movie-search';
 
 declare module 'telegraf' {
   interface ContextMessageUpdate {

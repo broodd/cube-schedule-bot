@@ -1,9 +1,9 @@
 {
   "scenes": {
     "start": {
-      "welcome_back": "Glad to see you back! Now you can continue watching after the releases of your favorite movies! What do you want to do now?",
+      "welcome_back": "Glad to see you back!",
       "new_account": "Account has been created successfully! Before start doing stuff with me, please read a short instruction about who I am and how I can help you 😊",
-      "bot_description": "<b>🔻 I'm currently in open beta test and under heavy development. Therefore, errors may occur. Do not hesitate to contact the Creator from under ✍️ Contact section\n\n</b>🔻 My name is Eve and I will help you to track upcoming torrent movies. Use search, add them to your collection and I'll write back to you once the movie released in a good quality\n\n🔻 As for now, I can only search for movies, but soon there will be TV Shows search together with some other cool functionality\n\n🔻 You can tell me what to do using Telegram keyboard. To open it, press the icon at the right bottom corner\n\n🔻 You can specify movie's year to get more relevant results. Use square brackets, for instance: star wars [2003]\n\n🔻 If something is broken, write /saveme and I'll do my best to fix it\n\n🔻 More information can be found under ❓About section\n\n🔻 Hope you enjoy using me!\n\nP.S. I'm also open source now! You can check me out here: https://github.com/dmbaranov/evemovies-bot",
+      "bot_description": "<b>🔻 My name is ■ Cube ■, let's click buttons, and look what happen \n\n</b>🔻 I am currently working in open beta mode and development is still in progress. If nothing, feel free to write to the Creator in the ✍️ Contact section \n\n🔻 You can find more information about me in the About Me section \n\n🔻 And yet I have open source!",
       "lets_go": "Let's go!",
       "user_info": "Your information\n\nGroup: ${group}\nName: ${name}\nSurname: ${surname}\nPhones: ${phones}",
       "group_info": "${department}\n${group}",
@@ -14,19 +14,11 @@
       "input_phones": "Your phone(s)",
       "try_again": "Well, try again",
       "choose_some": "Please choose",
-      "next": "Next",
-      "back": "◀️ Back"
+      "next": "Save",
+      "back": "◀️ Restart"
     },
     "about": {
       "main": "Come soon"
-    },
-    "movies": {
-      "chosen_movie": "You've chosen movie: ${title}",
-      "list_of_movies": "This is list of your movies",
-      "back_button": "◀️ Back",
-      "delete_button": "❌ Delete",
-      "delete_unwanted_movies": "You can delete movies you don't want to track anymore",
-      "no_movies_in_collection": "🗑 You don't have any movies in your collection. Go add some!"
     },
     "teachers": {
       "list_of_teachers": "This is list of your teachers",
@@ -35,6 +27,14 @@
       "no_have_teachers": "🗑 You don't have any teachers)",
       "not_found": "🗑 Not found, try again",
       "list_of_found_teachers": "🔎 List of found teachers"
+    },
+    "classmates": {
+      "list_of_classmates": "This is list of your classmates",
+      "back_button": "◀️ Back",
+      "search_teachers": "🔎 You can input for search",
+      "no_have_classmates": "🗑 You don't have any classmates)",
+      "not_found": "🗑 Not found, try again",
+      "list_of_found_classmates": "🔎 List of found classmates"
     },
     "search": {
       "chosen_movie": "You've chosen movie: ${title}",
@@ -59,9 +59,11 @@
       "language_button": "🗣 Language",
       "account_summary_button": "🔑 Account summary",
       "back_button": "◀️ Back",
-      "settings": "Settings"
+      "settings": "Settings",
+      "edit": "Edit"
     },
     "schedule": {
+      "what_next": "✋ Hey, what are you up to?",
       "choose_day": "Choose a day",
       "lessons": "lessons.",
       "not_found": "You dont have schedule",
@@ -92,8 +94,6 @@
       "back": "◀️ Back"
     },
     "main_keyboard": {
-      "search": "👀 Search",
-      "movies": "🎥 My collection",
       "settings": "⚙️ Settings",
       "about": "❓ About",
       "support": "💰 Donation",
@@ -101,7 +101,7 @@
       "schedule": "📅 schedule",
       "teachers": "👨‍🏫 Teachers",
       "classmates": "👥 Classmates",
-      "mem": "😎 mem"
+      "mem": "😎 Mem"
     },
     "scheldure_keyboard": {
       "today": "Today",
@@ -113,6 +113,6 @@
     "movie_has_been_released": "🎉 Movie ${movie} has been released!",
     "default_handler": "🚧 Hey, please choose a section with the Telegram keyboard before typing anything",
     "support": "🤝 If you like everything and want to say thanks me and the Creator, you can do it using these options:",
-    "mem": "😎 mem"
+    "mem": "😎 Mem"
   }
 }

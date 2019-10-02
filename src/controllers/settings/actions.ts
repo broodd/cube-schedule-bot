@@ -37,8 +37,9 @@ export const accountSummaryAction = async (ctx: ContextMessageUpdate) => {
       username: user.username,
       id: user._id,
       name: user.name,
-      surname: user.name,
-      group: user.group
+      surname: user.surname,
+      group: user.group,
+      phones: user.phones.join(', ')
     }),
     getAccountSummaryKeyboard(ctx)
   );

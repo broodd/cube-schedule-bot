@@ -29,19 +29,19 @@ settings.enter(async (ctx: ContextMessageUpdate) => {
   await sendMessageToBeDeletedLater(ctx, 'scenes.settings.settings', backKeyboard);
 });
 
-settings.leave(async (ctx: ContextMessageUpdate) => {
+settings.hears(match('keyboards.back_keyboard.back'), async (ctx: ContextMessageUpdate) => {
   logger.debug(ctx, 'Leaves settings scene');
   const { mainKeyboard } = getMainKeyboard(ctx);
   await ctx.reply(ctx.i18n.t('shared.what_next'), mainKeyboard);
   deleteFromSession(ctx, 'settingsScene');
 });
 
-settings.command('saveme', leave());
-settings.hears(match('keyboards.back_keyboard.back'), leave());
-
 settings.action(/languageSettings/, languageSettingsAction);
 settings.action(/languageChange/, languageChangeAction);
 settings.action(/accountSummary/, accountSummaryAction);
+settings.action(/editAccount/, (ctx: ContextMessageUpdate) => {
+  ctx.scene.enter('edit-user-info-wizard')
+});
 settings.action(/closeAccountSummary/, closeAccountSummaryAction);
 
 export default settings;

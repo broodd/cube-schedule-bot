@@ -21,8 +21,6 @@ export const getBackKeyboard = (ctx: ContextMessageUpdate) => {
  * @param ctx - telegram context
  */
 export const getMainKeyboard = (ctx: ContextMessageUpdate) => {
-  const mainKeyboardSearchMovies = ctx.i18n.t('keyboards.main_keyboard.search');
-  const mainKeyboardMyCollection = ctx.i18n.t('keyboards.main_keyboard.movies');
   const mainKeyboardSettings = ctx.i18n.t('keyboards.main_keyboard.settings');
   const mainKeyboardAbout = ctx.i18n.t('keyboards.main_keyboard.about');
   const mainKeyboardSupport = ctx.i18n.t('keyboards.main_keyboard.support');
@@ -32,7 +30,6 @@ export const getMainKeyboard = (ctx: ContextMessageUpdate) => {
   const mainKeyboardClassmates = ctx.i18n.t('keyboards.main_keyboard.classmates');
   const mainKeyboardMem = ctx.i18n.t('other.mem');
   let mainKeyboard: any = Markup.keyboard([
-    // [mainKeyboardSearchMovies, mainKeyboardMyCollection],
     [mainKeyboardScheldure, mainKeyboardMem],
     [mainKeyboardClassmates, mainKeyboardTeachers],
     [mainKeyboardSettings, mainKeyboardAbout],
@@ -42,8 +39,6 @@ export const getMainKeyboard = (ctx: ContextMessageUpdate) => {
 
   return {
     mainKeyboard,
-    mainKeyboardSearchMovies,
-    mainKeyboardMyCollection,
     mainKeyboardSettings,
     mainKeyboardAbout,
     mainKeyboardSupport,

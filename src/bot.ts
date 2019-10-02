@@ -12,7 +12,6 @@ import logger from './util/logger';
 
 import about from './controllers/about';
 
-import { checkUnreleasedMovies } from './util/notifier';
 import asyncWrapper from './util/error-handler';
 import { getMainKeyboard } from './util/keyboards';
 import { updateLanguage } from './util/language';
@@ -22,7 +21,6 @@ import { getUserInfo } from './middlewares/user-info';
 import { isAdmin } from './middlewares/is-admin';
 import Telegram from './telegram';
 import stage from './stage';
-import Teacher from './models/Teacher';
 
 mongoose.connect(`mongodb://localhost:27017/${process.env.DATABASE_HOST}`, {
   useNewUrlParser: true,
@@ -183,6 +181,4 @@ async function startProdMode(bot: Telegraf<ContextMessageUpdate>) {
 
   const webhookStatus = await Telegram.getWebhookInfo();
   console.log('Webhook status', webhookStatus);
-
-  checkUnreleasedMovies();
 }
