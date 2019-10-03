@@ -6,6 +6,6 @@ import { IUser } from '../../models/User';
  */
 export function getClassmatesHTML(teachers: IUser[]) {
   return teachers.map(item => {
-    return `${item.fullName}\n<b>${item.phones.join(', ')}</b>`
+    return `${item.fullName}\n<b>${item.phones.join(', ')}</b>`;
   }).join('\n\n')
 }

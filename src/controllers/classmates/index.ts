@@ -13,7 +13,6 @@ const classmates = new Scene('classmates');
 classmates.enter(async (ctx: ContextMessageUpdate) => {
   logger.debug(ctx, 'Enters teacher scene');
   const { backKeyboard } = getBackKeyboard(ctx);
-  
   const classmates = await User.find({
     group: ctx.session.user.group
   });

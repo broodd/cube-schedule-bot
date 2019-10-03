@@ -13,7 +13,6 @@ const teachers = new Scene('teachers');
 teachers.enter(async (ctx: ContextMessageUpdate) => {
   logger.debug(ctx, 'Enters teacher scene');
   const { backKeyboard } = getBackKeyboard(ctx);
-  
   const teachers = await Teacher.find();
   // saveToSession(ctx, 'teachers', teachers);
 
@@ -36,21 +35,21 @@ teachers.command('saveme', leave());
 teachers.hears(match('keyboards.back_keyboard.back'), leave());
 
 teachers.on('text', async (ctx: ContextMessageUpdate) => {
-  var regex = new RegExp(ctx.message.text, "ig");
+  const regex = new RegExp(ctx.message.text, 'ig');
   const teachers = await Teacher.find({
     $or: [
       { name: { $regex: regex }, },
       { surname: { $regex: regex }, },
       { fathername: { $regex: regex } }
     ]
-  })
+  });
 
   if (!teachers || !teachers.length) {
     await ctx.reply(ctx.i18n.t('scenes.teachers.not_found'));
     return;
   }
 
-  await ctx.reply(ctx.i18n.t('scenes.teachers.list_of_found_teachers'))
+  await ctx.reply(ctx.i18n.t('scenes.teachers.list_of_found_teachers'));
   await ctx.replyWithHTML(getTeachersHTML(teachers));
 });
 
