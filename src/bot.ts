@@ -1,4 +1,4 @@
-require('dotenv').config();
+// require('dotenv').config();
 require('./models'); // ficha, cool
 import fs from 'fs';
 import path from 'path';
@@ -151,7 +151,8 @@ mongoose.connection.on('open', () => {
 
   // setInterval(checkUnreleasedMovies, 86400000);
 
-  process.env.NODE_ENV === 'production' ? startProdMode(bot) : startDevMode(bot);
+  startDevMode(bot);
+  // process.env.NODE_ENV === 'production' ? startProdMode(bot) : startDevMode(bot);
 });
 
 function startDevMode(bot: Telegraf<ContextMessageUpdate>) {
