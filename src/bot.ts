@@ -1,4 +1,4 @@
-// require('dotenv').config();
+require('dotenv').config();
 require('./models'); // ficha, cool
 import fs from 'fs';
 import path from 'path';
@@ -151,8 +151,7 @@ mongoose.connection.on('open', () => {
 
   // setInterval(checkUnreleasedMovies, 86400000);
 
-  startDevMode(bot);
-  // process.env.NODE_ENV === 'production' ? startProdMode(bot) : startDevMode(bot);
+  process.env.NODE_ENV === 'production' ? startProdMode(bot) : startDevMode(bot);
 });
 
 function startDevMode(bot: Telegraf<ContextMessageUpdate>) {
@@ -166,19 +165,9 @@ function startDevMode(bot: Telegraf<ContextMessageUpdate>) {
 async function startProdMode(bot: Telegraf<ContextMessageUpdate>) {
   // If webhook not working, check fucking motherfucking UFW that probably blocks a port...
   logger.debug(undefined, 'Starting a bot in production mode');
-  const tlsOptions = {
-    key: fs.readFileSync(process.env.PATH_TO_KEY),
-    cert: fs.readFileSync(process.env.PATH_TO_CERT)
-  };
 
-  await bot.telegram.setWebhook(
-    `https://dmbaranov.io:${process.env.WEBHOOK_PORT}/${process.env.TELEGRAM_TOKEN}`,
-    {
-      source: 'cert.pem'
-    }
-  );
-
-  await bot.startWebhook(`/${process.env.TELEGRAM_TOKEN}`, tlsOptions, +process.env.WEBHOOK_PORT);
+  await bot.telegram.setWebhook(`${process.env.HEROKU_URL}/bot${process.env.TELEGRAM_TOKEN}`);
+  await bot.startWebhook(`${process.env.HEROKU_URL}/bot${ process.env.TELEGRAM_TOKEN }`, undefined, 5000);
 
   const webhookStatus = await Telegram.getWebhookInfo();
   console.log('Webhook status', webhookStatus);

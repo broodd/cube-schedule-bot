@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run serve",
     "build": "npm run build-ts",
-    "serve": "node dist/bot.js",
+    "serve": "NODE_ENV=production node dist/bot.js",
     "watch-node": "nodemon dist/bot.js",
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\"  \"npm run watch-ts\" \"npm run watch-node\"",
     "build-ts": "tsc",
