@@ -22,10 +22,10 @@ import { isAdmin } from './middlewares/is-admin';
 import Telegram from './telegram';
 import stage from './stage';
 
-mongoose.connect(`mongodb://localhost:27017/${process.env.DATABASE_HOST}`, {
+mongoose.connect(`mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}-pos0w.gcp.mongodb.net/${process.env.DATABASE_HOST}`, {
   useNewUrlParser: true,
-	useFindAndModify: false,
-	useUnifiedTopology: true
+  useFindAndModify: false,
+  useUnifiedTopology: true
 });
 mongoose.connection.on('error', err => {
   logger.error(
