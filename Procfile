@@ -1,1 +1,1 @@
-web: node dist/bot.js
+web: npm start
