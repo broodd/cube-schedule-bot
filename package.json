@@ -1,8 +1,9 @@
 {
-  "name": "telegram-bot",
+  "name": "cube-schedule-bot",
   "version": "0.1.0",
   "description": "With this bot you won't skip the moment when your favorite movies are available on the torrents!",
-  "author": "Svyat Broodd",
+	"author": "Svyat Broodd",
+	"license": "ISC",
   "scripts": {
     "start": "npm run serve",
     "build": "npm run build-ts",
