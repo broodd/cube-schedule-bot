@@ -1,0 +1,34 @@
+{
+	"version": 2,
+	"name": "cube-schedule-bot",
+	"builds": [
+		{
+			"src": "./dist/index.js",
+			"use": "@now/node-server"
+		}
+	],
+	"routes": [
+		{
+			"src": "/bot<TelegramTOKEN>",
+			"dest": "/dist"
+		},
+		{
+			"src": "/",
+			"dest": "/dist"
+		}
+	],
+	"env": {
+		"NODE_ENV": "production",
+		"TELEGRAM_TOKEN": "<TelegramTOKEN>",
+		"DATABASE_HOST": "HOST",
+		"DATABASE_USER": "DB_USER",
+		"DATABASE_PASSWORD": "DB_PASS",
+		"APP_URL": "Zeit_app_url",
+		"ADMIN_ID": "ADMIN_ID",
+		"ADMIN_PASSWORD": "ADMIN_PASS",
+		"WEBMONEY_LINK": "https://example.com",
+		"YANDEX_LINK": "https://example.com",
+		"PATREON_LINK": "https://example.com",
+		"PAYPAL_LINK": "https://example.com"
+	}
+}

@@ -22,7 +22,11 @@ import { isAdmin } from './middlewares/is-admin';
 import Telegram from './telegram';
 import stage from './stage';
 
-mongoose.connect(`mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}-pos0w.gcp.mongodb.net/${process.env.DATABASE_HOST}`, {
+const DB_URL = process.env.NODE_ENV === 'production' ?
+	`mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}-pos0w.gcp.mongodb.net/${process.env.DATABASE_HOST}` :
+	`mongodb://localhost:27017/${process.env.DATABASE_HOST}`;
+	
+mongoose.connect(DB_URL, {
   useNewUrlParser: true,
   useFindAndModify: false,
   useUnifiedTopology: true
@@ -164,8 +168,8 @@ async function startProdMode(bot: Telegraf<ContextMessageUpdate>) {
   // If webhook not working, check fucking motherfucking UFW that probably blocks a port...
   logger.debug(undefined, 'Starting a bot in production mode');
 
-  await bot.telegram.setWebhook(`${process.env.HEROKU_URL}/bot${process.env.TELEGRAM_TOKEN}`);
-  await bot.startWebhook(`${process.env.HEROKU_URL}/bot${ process.env.TELEGRAM_TOKEN }`, undefined, 5000);
+  await bot.telegram.setWebhook(`${process.env.APP_URL}/bot${process.env.TELEGRAM_TOKEN}`);
+  await bot.startWebhook(`/bot${ process.env.TELEGRAM_TOKEN }`, undefined, 5000);
 
   const webhookStatus = await Telegram.getWebhookInfo();
   console.log('Webhook status', webhookStatus);

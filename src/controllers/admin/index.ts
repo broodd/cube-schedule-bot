@@ -4,7 +4,7 @@ import Scene from 'telegraf/scenes/base';
 import { match } from 'telegraf-i18n';
 import { getMainKeyboard, getBackKeyboard } from '../../util/keyboards';
 import logger from '../../util/logger';
-import { write, getStats, getHelp } from './helpers';
+import { write, getStats, getHelp, addTeacher } from './helpers';
 
 const { leave } = Stage;
 const admin = new Scene('admin');
@@ -36,6 +36,8 @@ admin.on('text', async (ctx: ContextMessageUpdate) => {
     case 'stats':
       await getStats(ctx);
       break;
+    case 'teacher':
+			await addTeacher(ctx)
     case 'help':
       await getHelp(ctx);
       break;

@@ -44,16 +44,6 @@ schedule.hears(
     scheldureHTML(ctx, moment().day() + 1)
 );
 
-schedule.command(
-  'day',
-  getScheldure,
-  (ctx: ContextMessageUpdate) => {
-    const day: any = ctx.message.text.split(' ')[1]
-
-    scheldureHTML(ctx, day)
-  }
-)
-
 schedule.hears(
   match('keyboards.scheldure_keyboard.days_of_week'),
   (ctx: ContextMessageUpdate) =>
@@ -67,6 +57,15 @@ schedule.action(
     const { p } = JSON.parse(ctx.callbackQuery.data);
     
     scheldureHTML(ctx, p + 1)
+    await ctx.answerCbQuery();
+  }
+);
+
+schedule.action(
+  /all/,
+  getScheldure,
+  async (ctx: ContextMessageUpdate) => {
+    scheldureHTML(ctx)
     await ctx.answerCbQuery();
   }
 );

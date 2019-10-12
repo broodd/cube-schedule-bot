@@ -7,27 +7,23 @@ import moment, { Moment } from 'moment'
  * @param ctx - telegram context
  * @param day - number of day
  */
-export function getScheldureByDate(ctx: ContextMessageUpdate, day: number): schedule {
-  ctx.day = day
+export function getScheldureByDate(ctx: ContextMessageUpdate, day?: number): schedule[] {
+	if (day === undefined) {
+		return ctx.schedule
+	}
 
-  if (day == 0 || day > 4)
-    ctx.day = 1
+	let week = moment().week()
 
-  const date = moment().day(day).format('DD.MM.YYYY')
-
-  
-	// console.log('--- day', day, moment().day(day).week());
-	// let week = moment().week()
-	// if (day == 0 || day == 5) {
-	// 	ctx.day = 1
-	// }
-	// if (day == 5) {
-	// 	week += 1
-	// }
+	if (moment().day() == 0 || moment().day() > 5) {
+		week += 1
+	}
+	if (day == 0 || day > 5) {
+		day = 1
+	}
 	
-	// const date = moment().day(ctx.day).week(week).format('DD.MM.YYYY')
-  
-  return ctx.schedule.find(item => item.date == date)
+	const date = moment().day(day).week(week).format('DD.MM.YYYY')
+
+	return ctx.schedule.filter(item => item.date == date)
 }
 
 /**
@@ -35,26 +31,31 @@ export function getScheldureByDate(ctx: ContextMessageUpdate, day: number): sche
  * @param ctx - telegram context
  * @param day - number of day
  */
-export function scheldureHTML(ctx: ContextMessageUpdate, day: number) {
-  const schedule: schedule = getScheldureByDate(ctx, day)
+export function scheldureHTML(ctx: ContextMessageUpdate, day?: number) {
+  const schedule: schedule[] = getScheldureByDate(ctx, day)
 
-  if (schedule) {
-    let title: string = ctx.i18n.t('scenes.schedule.day.title', {
-      lessons_length: schedule.lessons.length,
-      lessons_alias: ctx.i18n.t('scenes.schedule.lessons'),
-      day: ctx.i18n.t('scenes.schedule.days.' + (ctx.day)),
-      date: schedule.date
-    });
-    let lessons: string = schedule.lessons.map(({ number, from, to, description }) => {
-      return ctx.i18n.t('scenes.schedule.day.lesson', {
-        number,
-        from,
-        to,
-        description
-      })
-    }).join('\n\n')
-    
-    ctx.replyWithHTML([title, lessons].join('\n\n'))
+  if (schedule.length) {
+		const resultShcedule: string = schedule.map(item => {
+			let title: string = ctx.i18n.t('scenes.schedule.day.title', {
+				lessons_length: item.lessons.length,
+				lessons_alias: ctx.i18n.t('scenes.schedule.lessons'),
+				day: ctx.i18n.t('scenes.schedule.days.' + (moment(item.date, 'DD.MM.YYYY').day())),
+				date: item.date
+			});
+
+			let lessons: string = item.lessons.map(({ number, from, to, description }) => {
+				return ctx.i18n.t('scenes.schedule.day.lesson', {
+					number,
+					from,
+					to,
+					description
+				})
+			}).join('\n\n')
+
+			return [title, lessons].join('\n\n')
+		}).join('\n\n* * *\n\n')
+
+		ctx.replyWithHTML(resultShcedule);
   } else {
     ctx.reply(ctx.i18n.t('shared.not_found'))
   }
@@ -74,7 +75,7 @@ export function getScheldureDaysMenu(ctx: ContextMessageUpdate) {
         false
       )
 		})
-		array.push(m.callbackButton(ctx.i18n.t('other.mem'), 'mem', false)) as any;
+		array.push(m.callbackButton(ctx.i18n.t('scenes.schedule.days.all'), 'all', false)) as any;
 
     return m.inlineKeyboard(array, {
       wrap: (btn: Button, index: number) => index % 2 == 0

@@ -33,8 +33,8 @@ export function getLanguageKeyboard() {
   return Extra.HTML().markup((m: Markup) =>
     m.inlineKeyboard(
       [
-        m.callbackButton(`English`, JSON.stringify({ a: 'languageChange', p: 'en' }), false),
-        m.callbackButton(`Гуцульська`, JSON.stringify({ a: 'languageChange', p: 'uk' }), false)
+        m.callbackButton(`🔵 English`, JSON.stringify({ a: 'languageChange', p: 'en' }), false),
+        m.callbackButton(`🔴 Гуцульська`, JSON.stringify({ a: 'languageChange', p: 'uk' }), false)
       ],
       {}
     )

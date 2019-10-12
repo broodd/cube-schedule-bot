@@ -17,9 +17,9 @@ teachers.enter(async (ctx: ContextMessageUpdate) => {
   // saveToSession(ctx, 'teachers', teachers);
 
   if (teachers.length) {
-    await ctx.reply(ctx.i18n.t('scenes.teachers.list_of_teachers'));
-    await ctx.replyWithHTML(getTeachersHTML(teachers), backKeyboard);
+    // await ctx.reply(ctx.i18n.t('scenes.teachers.list_of_teachers'));
     await ctx.reply(ctx.i18n.t('scenes.teachers.search_teachers'));
+    await ctx.replyWithHTML(getTeachersHTML(teachers), backKeyboard);
   } else {
     await ctx.reply(ctx.i18n.t('scenes.teachers.no_have_teachers'), backKeyboard);
   }

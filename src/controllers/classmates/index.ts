@@ -18,9 +18,8 @@ classmates.enter(async (ctx: ContextMessageUpdate) => {
   });
 
   if (classmates.length) {
-    await ctx.reply(ctx.i18n.t('scenes.classmates.list_of_classmates'));
-    await ctx.replyWithHTML(getClassmatesHTML(classmates), backKeyboard);
     await ctx.reply(ctx.i18n.t('scenes.classmates.search_classmates'));
+    await ctx.replyWithHTML(getClassmatesHTML(classmates), backKeyboard);
   } else {
     await ctx.reply(ctx.i18n.t('scenes.classmates.no_have_classmates'), backKeyboard);
   }
@@ -50,7 +49,7 @@ classmates.on('text', async (ctx: ContextMessageUpdate) => {
     return;
   }
 
-  await ctx.reply(ctx.i18n.t('scenes.classmates.list_of_found_classmates'))
+  // await ctx.reply(ctx.i18n.t('scenes.classmates.list_of_found_classmates'))
   await ctx.replyWithHTML(getClassmatesHTML(classmates));
 });
 

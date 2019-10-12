@@ -14,7 +14,7 @@ const userInfoWizard = new WizardScene('user-info-wizard',
     return ctx.wizard.next()
   },
   async (ctx: ContextMessageUpdate) => {
-    const group = ctx.message.text
+    const group = ctx.message.text.toUpperCase()
 
     let options = {
       method: 'GET',
@@ -32,7 +32,7 @@ const userInfoWizard = new WizardScene('user-info-wizard',
           group: data.group
         }))
 
-        ctx.wizard.state.group = group.toUpperCase()
+        ctx.wizard.state.group = group
         await ctx.reply(ctx.i18n.t('scenes.start.input_name'))
         return ctx.wizard.next()
       }

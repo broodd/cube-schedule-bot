@@ -1,5 +1,6 @@
 import { ContextMessageUpdate } from 'telegraf';
 import User from '../../models/User';
+import Teacher from '../../models/Teacher';
 import telegram from '../../telegram';
 
 /**
@@ -71,4 +72,23 @@ export async function getHelp(ctx: ContextMessageUpdate) {
       'stats - get stats about users\n' +
       'help - get help menu'
   );
+}
+
+
+/**
+ * Add teacher
+ * @param ctx - telegram context
+ */
+export async function addTeacher(ctx: ContextMessageUpdate) {
+  const teacher = new Teacher({
+		name: "Name teacher",
+		surname: "Surname teacher",
+		fathername: "Father name",
+		lessons: ['some less'],
+		phones: ['12323']
+	})
+
+	await teacher.save()
+
+	await ctx.reply(JSON.stringify(teacher))
 }

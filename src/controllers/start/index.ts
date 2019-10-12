@@ -24,7 +24,7 @@ start.enter(async (ctx: ContextMessageUpdate) => {
 	} else {
 		logger.debug(ctx, 'New user has been created');
 
-		await ctx.reply('Choose language / Виберіть мову', getLanguageKeyboard());
+		await ctx.reply('🔵 Choose language / 🔴 Виберіть мову', getLanguageKeyboard());
 	}
 });
 

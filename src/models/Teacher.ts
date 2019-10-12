@@ -14,13 +14,19 @@ export interface ITeacher extends Document {
 
 export const TeacherSchema = new mongoose.Schema(
   {
-    created: Number,
+    created: {
+      type: Date,
+      default: Date.now
+    },
     name: String,
     surname: String,
     fathername: String,
     lessons: [String],
     phones: [String],
-    lastActivity: Number
+    lastActivity: {
+      type: Date,
+      default: Date.now
+    },
   },
   { 
     id: true,
