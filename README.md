@@ -1,5 +1,5 @@
-# Cube - schedule bot
-![alt text](https://i.pinimg.com/originals/c6/53/a8/c653a85884ff94b06a6cc7f04ad43655.png)
+# Cube - schedule bot of lessons in University IFTUNG
+![alt text](https://i.imgur.com/2781z0t.png)
 
 ### BETA version
 

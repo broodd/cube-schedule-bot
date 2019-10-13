@@ -8,8 +8,8 @@ import { confirmUserInfo } from './actions';
 
 const userInfoWizard = new WizardScene('user-info-wizard',
   async (ctx: ContextMessageUpdate) => {
-    await ctx.reply(ctx.i18n.t('scenes.start.input_real_data'))
-    await ctx.reply(ctx.i18n.t('scenes.start.input_group_name'))
+    ctx.reply(ctx.i18n.t('scenes.start.input_real_data'))
+    ctx.reply(ctx.i18n.t('scenes.start.input_group_name'))
     
     return ctx.wizard.next()
   },
