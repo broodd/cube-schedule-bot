@@ -17,7 +17,7 @@ start.enter(async (ctx: ContextMessageUpdate) => {
 	const uid = String(ctx.from.id);
 	const user = await User.findById(uid);
 	
-	if (user) {
+	if (!user) {
 		const { mainKeyboard } = getMainKeyboard(ctx);
 		await ctx.reply(ctx.i18n.t('scenes.start.welcome_back'), mainKeyboard);
 		ctx.scene.leave()

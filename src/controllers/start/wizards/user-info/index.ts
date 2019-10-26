@@ -1,5 +1,5 @@
 import rp from 'request-promise';
-import { ContextMessageUpdate, Markup } from 'telegraf';
+import { ContextMessageUpdate, Extra, Markup, Button } from 'telegraf';
 import WizardScene from 'telegraf/scenes/wizard';
 import { getMainKeyboard } from '../../../../util/keyboards';
 import { getUserInfoConfirmKeyboard } from './helpers'
@@ -8,34 +8,55 @@ import { confirmUserInfo } from './actions';
 
 const userInfoWizard = new WizardScene('user-info-wizard',
   async (ctx: ContextMessageUpdate) => {
-    ctx.reply(ctx.i18n.t('scenes.start.input_real_data'))
-    ctx.reply(ctx.i18n.t('scenes.start.input_group_name'))
+    await ctx.reply(ctx.i18n.t('scenes.start.input_real_data'))
+    await ctx.reply(ctx.i18n.t('scenes.start.input_group_name'))
     
     return ctx.wizard.next()
   },
   async (ctx: ContextMessageUpdate) => {
-    const group = ctx.message.text.toUpperCase()
+    const inputGroup = ctx.message.text.toUpperCase().trim()
 
     let options = {
       method: 'GET',
-      url: 'https://www.ifntung-api.com/groups/exists',
+      url: process.env.API_URL + '/groups',
       qs: {
-        group,
+        inputGroup,
       },
       json: true
     }
     try {
-      let data = await rp(options)
-      if (data.group) {
-        await ctx.reply(ctx.i18n.t('scenes.start.group_info', {
-          department: data.department,
-          group: data.group
-        }))
+			let data = await rp(options) 
 
-        ctx.wizard.state.group = group
-        await ctx.reply(ctx.i18n.t('scenes.start.input_name'))
-        return ctx.wizard.next()
-      }
+			const groups = data.filter((item: any) => {
+				return item.group.includes(inputGroup)
+			})
+
+      if (groups.length) {
+				
+
+				const buttons = Extra.HTML().markup((m: Markup) => {
+					return m.inlineKeyboard(
+						groups.map((item: any) => {
+							return m.callbackButton(
+								item.group,
+								JSON.stringify({ a: 'group', p: item.group }),
+								false
+							)
+						}),
+						{ wrap: (btn: Button, index: number) => index % 2 == 0 }
+					)
+				})
+
+				// let buttons: any = Markup.keyboard(
+				// 	groups.map((item: any) => item.group),
+				// 	{ wrap: (btn: Button, index: number) => index % 3 == 0 }
+				// );
+				// buttons = buttons.resize().extra();
+
+				ctx.reply('choose your group', buttons);
+      } else {
+				await ctx.reply(ctx.i18n.t('scenes.start.try_again'))
+			}
     } catch (e) {
       await ctx.reply(ctx.i18n.t('scenes.start.try_again'))
     }
@@ -94,5 +115,20 @@ userInfoWizard.use(async (ctx: ContextMessageUpdate, next: Function) => {
   await ctx.reply(ctx.i18n.t('scenes.start.try_again'))
   return;
 })
+
+// when choose group
+userInfoWizard.action(
+	/group/,
+	async (ctx: ContextMessageUpdate) => {
+		if (!ctx.wizard.state.group) {
+			const { p } = JSON.parse(ctx.callbackQuery.data);
+			ctx.wizard.state.group = p
+			await ctx.reply(ctx.i18n.t('scenes.start.input_name'))
+			ctx.wizard.next()
+		}
+
+		await ctx.answerCbQuery();
+	}
+);
 
 export default userInfoWizard

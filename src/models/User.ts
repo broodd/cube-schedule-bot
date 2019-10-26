@@ -32,15 +32,6 @@ export const UserSchema = new mongoose.Schema(
       type: Date,
       default: Date.now
     },
-
-    observableMovies: [
-      {
-        type: String,
-        ref: 'Movie'
-      }
-    ],
-    
-    totalMovies: Number
   },
   {
     _id: false,
@@ -48,13 +39,6 @@ export const UserSchema = new mongoose.Schema(
     toJSON: { virtuals: true }
   }
 );
-
-// ficha, cool
-// UserSchema.pre('find', function() {
-//   this.populate('observableMovies');
-// }).pre('findOne', function() {
-//   this.populate('observableMovies');
-// });
 
 UserSchema.virtual('fullName').get(function () {
   return [this.surname, this.name].join(' ');
