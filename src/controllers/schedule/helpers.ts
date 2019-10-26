@@ -1,40 +1,45 @@
 import { Extra, Markup, ContextMessageUpdate, Button, CallbackButton } from 'telegraf';
 import { schedule } from 'schedule';
 import moment, { Moment } from 'moment'
+import rp from 'request-promise'
 
 /**
- * Displays menu with a list of movies
+ * Get shcedule from IFTUNG API
  * @param ctx - telegram context
- * @param day - number of day
  */
-export function getScheldureByDate(ctx: ContextMessageUpdate, day?: number): schedule[] {
-	if (day === undefined) {
-		return ctx.schedule
-	}
+export async function getScheldure(ctx: ContextMessageUpdate, from_date: string, to_date: string): Promise<schedule[]> {
+	try {
+		let options = {
+			method: 'GET',
+			url: process.env.API_URL + '/schedule',
+			qs: {
+				group: ctx.session.user.group,
+				from_date,
+				to_date
+			}
+		}
 
-	let week = moment().week()
+		let response = await rp(options)
+		// response = response.replace(/'/ig, '').replace(/`/ig, '\'').replace(String.fromCharCode(65279), '')
+		const schedule = JSON.parse(response.toString())
 
-	if (moment().day() == 0 || moment().day() > 5) {
-		week += 1
+		return schedule
+	} catch (e) {
+		return []
 	}
-	if (day == 0 || day > 5) {
-		day = 1
-	}
-	
-	const date = moment().day(day).week(week).format('DD.MM.YYYY')
-
-	return ctx.schedule.filter(item => item.date == date)
 }
 
 /**
- * Displays menu with a list of movies
+ * Display shedule by date
  * @param ctx - telegram context
- * @param day - number of day
+ * @param from_date - moment, from date
+ * @param to_date - moment, to date
  */
-export function scheldureHTML(ctx: ContextMessageUpdate, day?: number) {
-  const schedule: schedule[] = getScheldureByDate(ctx, day)
+export async function scheldureHTML(ctx: ContextMessageUpdate, from_date: Moment, to_date: Moment = from_date) {
+	moment.defaultFormat = 'DD.MM.YYYY';
+	const schedule: schedule[] = await getScheldure(ctx, from_date.format(), to_date.format())
 
-  if (schedule.length) {
+	if (schedule.length) {
 		const resultShcedule: string = schedule.map(item => {
 			let title: string = ctx.i18n.t('scenes.schedule.day.title', {
 				lessons_length: item.lessons.length,
@@ -56,29 +61,7 @@ export function scheldureHTML(ctx: ContextMessageUpdate, day?: number) {
 		}).join('\n\n* * *\n\n')
 
 		ctx.replyWithHTML(resultShcedule);
-  } else {
-    ctx.reply(ctx.i18n.t('shared.not_found'))
-  }
-}
-
-/**
- * Displays menu with a list of days of week & mem
- * @param ctx - telegram context
- */
-export function getScheldureDaysMenu(ctx: ContextMessageUpdate) {
-  return Extra.HTML().markup((m: Markup) => {
-
-    let array: any[] = new Array(5).fill(undefined).map((item: any, index: number) => {
-      return m.callbackButton(
-        `${ctx.i18n.t('scenes.schedule.days.' + (+index + 1))}`,
-        JSON.stringify({ a: 'day', p: index}),
-        false
-      )
-		})
-		array.push(m.callbackButton(ctx.i18n.t('scenes.schedule.days.all'), 'all', false)) as any;
-
-    return m.inlineKeyboard(array, {
-      wrap: (btn: Button, index: number) => index % 2 == 0
-    })
-  });
+	} else {
+		ctx.reply(ctx.i18n.t('scenes.schedule.not_found'))
+	}
 }

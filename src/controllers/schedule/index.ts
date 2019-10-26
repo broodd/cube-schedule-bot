@@ -1,10 +1,9 @@
-import { ContextMessageUpdate } from 'telegraf';
+import { ContextMessageUpdate, Markup, Extra } from 'telegraf';
 import { match } from 'telegraf-i18n';
 import Stage from 'telegraf/stage';
 import Scene from 'telegraf/scenes/base';
 import moment from 'moment';
-import { getScheldure } from './middlewares';
-import { getScheldureByDate, scheldureHTML, getScheldureDaysMenu } from './helpers';
+import { scheldureHTML } from './helpers';
 import { getMainKeyboard, getBackKeyboard, getScheldureBoard } from '../../util/keyboards';
 import logger from '../../util/logger';
 import { deleteFromSession } from '../../util/session';
@@ -14,7 +13,7 @@ const schedule = new Scene('schedule');
 
 schedule.enter(async (ctx: ContextMessageUpdate) => {
   logger.debug(ctx, 'Enters schedule scene');
-  const { scheldureKeyBoard } = getScheldureBoard(ctx);
+	const { scheldureKeyBoard } = getScheldureBoard(ctx);
 
   await ctx.reply(ctx.i18n.t('scenes.schedule.what_next'), scheldureKeyBoard);
 });
@@ -31,43 +30,52 @@ schedule.command('saveme', leave());
 schedule.hears(match('keyboards.back_keyboard.back'), leave());
 
 schedule.hears(
-  match('keyboards.scheldure_keyboard.today'),
-  getScheldure,
+  match('keyboards.scheldure_keyboard.yersterday'),
   (ctx: ContextMessageUpdate) =>
-    scheldureHTML(ctx, moment().day())
+    scheldureHTML(ctx, moment().add(-1, 'days'))
+);
+
+schedule.hears(
+  match('keyboards.scheldure_keyboard.today'),
+  (ctx: ContextMessageUpdate) =>
+    scheldureHTML(ctx, moment())
 );
 
 schedule.hears(
   match('keyboards.scheldure_keyboard.tommorow'), 
-  getScheldure,
   (ctx: ContextMessageUpdate) => 
-    scheldureHTML(ctx, moment().day() + 1)
+    scheldureHTML(ctx, moment().add(1, 'days'))
 );
 
 schedule.hears(
-  match('keyboards.scheldure_keyboard.days_of_week'),
-  (ctx: ContextMessageUpdate) =>
-    ctx.reply(ctx.i18n.t('scenes.schedule.choose_day'), getScheldureDaysMenu(ctx))
+  match('keyboards.scheldure_keyboard.prev_week'), 
+  (ctx: ContextMessageUpdate) => {
+		const week = moment().week();
+		const fromDate = moment().week(week - 1).day(1);
+		const toDate = moment().week(week - 1).day(7);
+		
+    scheldureHTML(ctx, fromDate, toDate)
+	}
 );
 
-schedule.action(
-  /day/,
-  getScheldure,
-  async (ctx: ContextMessageUpdate) => {
-    const { p } = JSON.parse(ctx.callbackQuery.data);
-    
-    scheldureHTML(ctx, p + 1)
-    await ctx.answerCbQuery();
-  }
+schedule.hears(
+  match('keyboards.scheldure_keyboard.next_week'), 
+  (ctx: ContextMessageUpdate) => {
+		const week = moment().week();
+		const fromDate = moment().week(week + 1).day(1);
+		const toDate = moment().week(week + 1).day(7);
+
+    scheldureHTML(ctx, fromDate, toDate)
+	}
 );
 
-schedule.action(
-  /all/,
-  getScheldure,
-  async (ctx: ContextMessageUpdate) => {
-    scheldureHTML(ctx)
-    await ctx.answerCbQuery();
-  }
-);
+for (let day = 1; day <= 7; day++) {
+	schedule.hears(
+		match('scenes.schedule.days_min.' + day),
+		async (ctx: ContextMessageUpdate) => {
+			await scheldureHTML(ctx, moment().day(day))
+		}
+	);
+}
 
 export default schedule;

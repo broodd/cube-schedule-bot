@@ -29,8 +29,8 @@ export const confirmUserInfo = async (ctx: ContextMessageUpdate) => {
   const accountConfirmKeyboard = getAccountConfirmKeyboard(ctx);
   accountConfirmKeyboard.disable_web_page_preview = true;
 
-  await ctx.reply(ctx.i18n.t('scenes.start.new_account'));
-  await sleep(2);
+  // await ctx.reply(ctx.i18n.t('scenes.start.new_account'));
+  // await sleep(2);
   await ctx.reply(ctx.i18n.t('scenes.start.bot_description'), accountConfirmKeyboard);
 
   await ctx.answerCbQuery();
