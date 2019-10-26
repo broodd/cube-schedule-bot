@@ -1,9 +1,10 @@
-# Cube - schedule bot of lessons in University IFTUNG
+## Cube - schedule bot of lessons in University IFTUNG
 ![alt text](https://i.imgur.com/2781z0t.png)
 
-![alt text](https://s3.gifyu.com/images/ezgif-1-b8ded82f622d.gif)
+### Demo GIF, [Telegram link](https://t.me/CubeEscapeBot)
+![demo bot](https://media.giphy.com/media/gdfbTlf4TRKXQ51abn/giphy.gif)
 
-### BETA version
+#### BETA version
 
 ## Introduction
 
