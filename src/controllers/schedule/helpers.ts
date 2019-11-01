@@ -11,7 +11,7 @@ export async function getScheldure(ctx: ContextMessageUpdate, from_date: string,
 	try {
 		let options = {
 			method: 'GET',
-			url: process.env.API_URL + '/schedule',
+			url: process.env.API_URL + '/groups/schedule',
 			qs: {
 				group: ctx.session.user.group,
 				from_date,
