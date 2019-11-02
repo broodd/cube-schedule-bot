@@ -19,7 +19,7 @@ Thumbs.db
 dist/**/*
 
 # Other
-debug.log
+# debug.log
 yarn.lock
 dump
 dist.zip

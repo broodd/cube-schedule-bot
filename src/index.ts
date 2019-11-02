@@ -153,7 +153,7 @@ mongoose.connection.on('open', () => {
     logger.error(undefined, 'Global error has happened, %O', error);
   });
 
-	startDevMode(bot);
+	startProdMode(bot);
 	// process.env.NODE_ENV === 'production' ? startProdMode(bot) : startDevMode(bot);
 });
 
