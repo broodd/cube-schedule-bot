@@ -169,7 +169,7 @@ async function startProdMode(bot: Telegraf<ContextMessageUpdate>) {
   logger.debug(undefined, 'Starting a bot in production mode');
 
   await bot.telegram.setWebhook(`${process.env.APP_URL}/bot${process.env.TELEGRAM_TOKEN}`);
-  await bot.startWebhook(`/bot${ process.env.TELEGRAM_TOKEN }`, undefined, 5000);
+	await bot.startWebhook(`/bot${process.env.TELEGRAM_TOKEN}`, undefined, (+process.env.PORT || 5000))
 
   const webhookStatus = await Telegram.getWebhookInfo();
   console.log('Webhook status', webhookStatus);
