@@ -1,6 +1,7 @@
 import { Extra, Markup, ContextMessageUpdate, Button, CallbackButton } from 'telegraf';
 import { schedule } from 'schedule';
-import moment, { Moment } from 'moment'
+import moment, { Moment } from 'moment';
+import logger from '../../util/logger';
 import rp from 'request-promise'
 
 /**
@@ -8,7 +9,7 @@ import rp from 'request-promise'
  * @param ctx - telegram context
  */
 export async function getScheldure(ctx: ContextMessageUpdate, from_date: string, to_date: string): Promise<schedule[]> {
-	// try {
+	try {
 		let options = {
 			method: 'GET',
 			url: process.env.API_URL + '/groups/schedule',
@@ -16,22 +17,17 @@ export async function getScheldure(ctx: ContextMessageUpdate, from_date: string,
 				group: ctx.session.user.group,
 				from_date,
 				to_date,
-				timeout: 300000,
-				resolveWithFullResponse: true
+				timeout: 600000,
+				// resolveWithFullResponse: true++
 			}
 		}
 
-		return rp(options)
-			.then((response) => {
-				// response = response.replace(/'/ig, '').replace(/`/ig, '\'').replace(String.fromCharCode(65279), '')
-				const schedule = JSON.parse(response.toString())
-
-				return schedule
-			})
-			.catch((error) => ctx.reply(error.message))
-	// } catch (e) {
-	// 	ctx.reply(e.message)
-	// }
+		const response= await rp(options)
+		const schedule = JSON.parse(response.toString())
+		return schedule
+	} catch (e) {
+		logger.error(null, 'schedule error', e.message);
+	}
 }
 
 /**
@@ -44,7 +40,7 @@ export async function scheldureHTML(ctx: ContextMessageUpdate, from_date: Moment
 	moment.defaultFormat = 'DD.MM.YYYY';
 	const schedule: schedule[] = await getScheldure(ctx, from_date.format(), to_date.format())
 
-	if (schedule.length) {
+	if (schedule && schedule.length) {
 		const resultShcedule: string = schedule.map(item => {
 			let title: string = ctx.i18n.t('scenes.schedule.day.title', {
 				lessons_length: item.lessons.length,
