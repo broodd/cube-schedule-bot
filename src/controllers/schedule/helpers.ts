@@ -25,7 +25,7 @@ export async function getScheldure(ctx: ContextMessageUpdate, from_date: string,
 
 		return schedule
 	} catch (e) {
-		return []
+		ctx.reply(e.message)
 	}
 }
 

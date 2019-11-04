@@ -987,3 +987,16 @@
 [2019-11-02T11:44:04.491Z] [debug][394236104/brood_d]: Leaves schedule scene
 [2019-11-02T11:44:04.492Z] [debug][394236104/brood_d]: Deleting user from session
 [2019-11-02T11:45:43.232Z] [debug]: Starting a bot in production mode
+[2019-11-04T07:10:04.829Z] [debug]: Starting a bot in production mode
+[2019-11-04T07:10:38.907Z] [debug]Logging initialized at debug level
+[2019-11-04T07:10:40.193Z] [debug]: Starting a bot in development mode
+[2019-11-04T07:10:47.427Z] [debug]Logging initialized at debug level
+[2019-11-04T07:10:48.610Z] [debug]: Starting a bot in development mode
+[2019-11-04T07:10:59.323Z] [debug][394236104/brood_d]: Default handler has fired
+[2019-11-04T07:10:59.326Z] [debug][394236104/brood_d]: Updating language for user to en
+[2019-11-04T07:10:59.343Z] [debug][394236104/brood_d]: Saving language to session
+[2019-11-04T07:11:00.785Z] [debug][394236104/brood_d]: Enters schedule scene
+[2019-11-04T07:13:11.168Z] [debug]Logging initialized at debug level
+[2019-11-04T07:13:12.301Z] [debug]: Starting a bot in development mode
+[2019-11-04T07:14:15.288Z] [debug]Logging initialized at debug level
+[2019-11-04T07:14:16.402Z] [debug]: Starting a bot in development mode
