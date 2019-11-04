@@ -81,8 +81,8 @@ export const getScheldureBoard = (ctx: ContextMessageUpdate) => {
 		scheldureKeyBoardYersterday,
 		scheldureKeyBoardToday,
 		scheldureKeyBoardTommorow,
-		scheldureKeyBoardPrevWeek,
-		scheldureKeyBoardNextWeek,
+		// scheldureKeyBoardPrevWeek,
+		// scheldureKeyBoardNextWeek,
 		scheldureKeyBoardBack
   };
 };
