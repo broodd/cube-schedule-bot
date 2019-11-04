@@ -59,8 +59,8 @@ export const getScheldureBoard = (ctx: ContextMessageUpdate) => {
 	const scheldureKeyBoardYersterday = ctx.i18n.t('keyboards.scheldure_keyboard.yersterday');
 	const scheldureKeyBoardToday = ctx.i18n.t('keyboards.scheldure_keyboard.today');
 	const scheldureKeyBoardTommorow = ctx.i18n.t('keyboards.scheldure_keyboard.tommorow');
-	const scheldureKeyBoardPrevWeek = ctx.i18n.t('keyboards.scheldure_keyboard.prev_week');
-	const scheldureKeyBoardNextWeek = ctx.i18n.t('keyboards.scheldure_keyboard.next_week');
+	// const scheldureKeyBoardPrevWeek = ctx.i18n.t('keyboards.scheldure_keyboard.prev_week');
+	// const scheldureKeyBoardNextWeek = ctx.i18n.t('keyboards.scheldure_keyboard.next_week');
 	const scheldureKeyBoardBack = ctx.i18n.t('keyboards.back_keyboard.back');
 	let days: any[] = new Array(7)
 		.fill(undefined)
@@ -71,7 +71,7 @@ export const getScheldureBoard = (ctx: ContextMessageUpdate) => {
 	let scheldureKeyBoard: any = Markup.keyboard([
 		days,
 		[scheldureKeyBoardYersterday, scheldureKeyBoardToday, scheldureKeyBoardTommorow],
-		[scheldureKeyBoardPrevWeek, scheldureKeyBoardNextWeek],
+		// [scheldureKeyBoardPrevWeek, scheldureKeyBoardNextWeek],
 		[scheldureKeyBoardBack]
 	])
 	scheldureKeyBoard = scheldureKeyBoard.resize().extra();
