@@ -18,7 +18,7 @@
     "debug": "npm run build && npm run watch-debug",
     "serve-debug": "nodemon --inspect dist/index.js",
     "watch-debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\"",
-    "deploy": "git add . && git commit -m 'fix' && git push heroku master"
+    "deploy": "git add . && git commit -m 'fix' && git push origin dev"
   },
   "dependencies": {
     "dotenv": "^6.1.0",
