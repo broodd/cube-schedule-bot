@@ -8,25 +8,30 @@ import rp from 'request-promise'
  * @param ctx - telegram context
  */
 export async function getScheldure(ctx: ContextMessageUpdate, from_date: string, to_date: string): Promise<schedule[]> {
-	try {
+	// try {
 		let options = {
 			method: 'GET',
 			url: process.env.API_URL + '/groups/schedule',
 			qs: {
 				group: ctx.session.user.group,
 				from_date,
-				to_date
+				to_date,
+				timeout: 300000,
+				resolveWithFullResponse: true
 			}
 		}
 
-		let response = await rp(options)
-		// response = response.replace(/'/ig, '').replace(/`/ig, '\'').replace(String.fromCharCode(65279), '')
-		const schedule = JSON.parse(response.toString())
+		return rp(options)
+			.then((response) => {
+				// response = response.replace(/'/ig, '').replace(/`/ig, '\'').replace(String.fromCharCode(65279), '')
+				const schedule = JSON.parse(response.toString())
 
-		return schedule
-	} catch (e) {
-		ctx.reply(e.message)
-	}
+				return schedule
+			})
+			.catch((error) => ctx.reply(error.message))
+	// } catch (e) {
+	// 	ctx.reply(e.message)
+	// }
 }
 
 /**
