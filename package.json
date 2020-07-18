@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "dotenv": "^6.1.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "moment": "^2.24.0",
     "mongoose": "^5.3.12",
     "request": "^2.88.0",
